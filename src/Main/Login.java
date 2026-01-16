@@ -61,7 +61,7 @@ public class Login extends javax.swing.JFrame {
         jPanel3.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 290, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel5.setForeground(new java.awt.Color(0, 153, 153));
         jLabel5.setText("Login to your Account");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 270, 150));
 
