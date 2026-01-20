@@ -38,7 +38,7 @@ public class Login extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        registerbtn = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -113,10 +113,15 @@ public class Login extends javax.swing.JFrame {
         jLabel10.setText("Not Registered Yet?");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 140, 40));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel11.setText("Create an account");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 170, 40));
+        registerbtn.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        registerbtn.setForeground(new java.awt.Color(0, 153, 153));
+        registerbtn.setText("Create an account");
+        registerbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                registerbtnMouseClicked(evt);
+            }
+        });
+        jPanel3.add(registerbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 170, 40));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 420, 700));
 
@@ -161,6 +166,12 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
+    private void registerbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerbtnMouseClicked
+        Register registerbtn = new Register();
+        registerbtn.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_registerbtnMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -200,7 +211,6 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -215,5 +225,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel registerbtn;
     // End of variables declaration//GEN-END:variables
 }
