@@ -50,9 +50,14 @@ public class Register extends javax.swing.JFrame {
         loginbtn = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        confpass = new javax.swing.JPasswordField();
+        jLabel15 = new javax.swing.JLabel();
+        type = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
@@ -65,14 +70,14 @@ public class Register extends javax.swing.JFrame {
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, -270, 740, 480));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo.png"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 374, 312));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 374, 312));
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 51, 102));
         jLabel3.setText("Smart Tracking for Smarter Learning.");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 410, 100));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 6, 440, 720));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 440, 720));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -91,11 +96,11 @@ public class Register extends javax.swing.JFrame {
                 emailActionPerformed(evt);
             }
         });
-        jPanel3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 290, 30));
+        jPanel3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, 290, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel8.setText("First name");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 90, 40));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 90, 40));
 
         firstname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,26 +114,25 @@ public class Register extends javax.swing.JFrame {
                 lastnameActionPerformed(evt);
             }
         });
-        jPanel3.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 290, 30));
+        jPanel3.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 290, 30));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel10.setText("Email");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 50, 30));
+        jLabel10.setText("User type");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 80, 30));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel11.setText("Password");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 90, 50));
+        jLabel11.setText("Confirm Password");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 160, 50));
 
-        pass.setText("jPasswordField1");
         pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passActionPerformed(evt);
             }
         });
-        jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 290, 30));
+        jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, 290, 30));
 
         jLabel12.setText("Already have an account?");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 560, 190, 40));
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 620, 190, 40));
 
         loginbtn.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         loginbtn.setForeground(new java.awt.Color(0, 153, 153));
@@ -138,7 +142,7 @@ public class Register extends javax.swing.JFrame {
                 loginbtnMouseClicked(evt);
             }
         });
-        jPanel3.add(loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 70, 40));
+        jPanel3.add(loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 70, 40));
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -155,7 +159,7 @@ public class Register extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +168,29 @@ public class Register extends javax.swing.JFrame {
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 290, 40));
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 570, 290, 40));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel13.setText("Password");
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 90, 50));
+
+        confpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confpassActionPerformed(evt);
+            }
+        });
+        jPanel3.add(confpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 290, 30));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel15.setText("Email");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 50, 30));
+
+        type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeActionPerformed(evt);
+            }
+        });
+        jPanel3.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 290, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 430, 740));
 
@@ -201,8 +227,8 @@ public class Register extends javax.swing.JFrame {
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         config con = new config();
         
-        String sql = "INSERT INTO tbl_accounts (fname, lname, email, pass, type, status) VALUES (?, ?, ?, ?, ?, ?)";
-        con.addRecord(sql, firstname.getText(), lastname.getText(), email.getText(), pass.getText(), "Admin", "Pending");
+        String sql = "INSERT INTO tbl_accounts (fname, lname, email, type, pass, confpass, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        con.addRecord(sql, firstname.getText(), lastname.getText(), email.getText(), type.getText(), pass.getText(), confpass.getText(), "Pending");
         JOptionPane.showMessageDialog(null, "RECORD ADDED!");
     }//GEN-LAST:event_jLabel14MouseClicked
 
@@ -211,6 +237,14 @@ public class Register extends javax.swing.JFrame {
         loginbtn.setVisible(true);
         dispose();
     }//GEN-LAST:event_loginbtnMouseClicked
+
+    private void confpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confpassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confpassActionPerformed
+
+    private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_typeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,13 +282,16 @@ public class Register extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField confpass;
     private javax.swing.JTextField email;
     private javax.swing.JTextField firstname;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -268,5 +305,6 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField lastname;
     private javax.swing.JLabel loginbtn;
     private javax.swing.JPasswordField pass;
+    private javax.swing.JTextField type;
     // End of variables declaration//GEN-END:variables
 }

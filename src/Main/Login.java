@@ -69,7 +69,6 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setText("Password");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 120, 70));
 
-        jPasswordField1.setText("jPasswordField1");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
