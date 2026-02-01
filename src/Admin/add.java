@@ -57,8 +57,8 @@ public class add extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         firstname = new javax.swing.JTextField();
         lastname = new javax.swing.JTextField();
-        email = new javax.swing.JTextField();
-        type = new javax.swing.JTextField();
+        Email = new javax.swing.JTextField();
+        Type = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -68,7 +68,7 @@ public class add extends javax.swing.JFrame {
         addU = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         confpass = new javax.swing.JPasswordField();
-        pass = new javax.swing.JPasswordField();
+        Pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -238,25 +238,13 @@ public class add extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(0, 153, 153));
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel6.setLayout(null);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Search");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel6.add(jLabel4);
+        jLabel4.setBounds(20, 0, 70, 30);
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 220, 110, 30));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 360, 30));
@@ -342,8 +330,8 @@ public class add extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel4.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 240, 40));
         jPanel4.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 240, 40));
-        jPanel4.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 240, 40));
-        jPanel4.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, 240, 40));
+        jPanel4.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 240, 40));
+        jPanel4.add(Type, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, 240, 40));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel12.setText("Confirm Password:");
@@ -382,33 +370,27 @@ public class add extends javax.swing.JFrame {
                 addUMouseExited(evt);
             }
         });
+        addU.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("ADD USER");
-
-        javax.swing.GroupLayout addULayout = new javax.swing.GroupLayout(addU);
-        addU.setLayout(addULayout);
-        addULayout.setHorizontalGroup(
-            addULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-        );
-        addULayout.setVerticalGroup(
-            addULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addULayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel4.add(addU, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, -1, -1));
-        jPanel4.add(confpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 240, 40));
-
-        pass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
             }
         });
-        jPanel4.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 240, 40));
+        addU.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 120, -1));
+
+        jPanel4.add(addU, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 260, 70));
+        jPanel4.add(confpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 240, 40));
+
+        Pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PassActionPerformed(evt);
+            }
+        });
+        jPanel4.add(Pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 240, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 930, 330));
 
@@ -490,20 +472,24 @@ public class add extends javax.swing.JFrame {
     private void addUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUMouseClicked
         config con = new config();
         
-        String sql = "INSERT INTO tbl_accounts (fname, lname, email, type, pass, confpass, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        con.addRecord(sql, firstname.getText(), lastname.getText(), email.getText(), type.getText(), pass.getText(), confpass.getText(), "Pending");
+        String sql = "INSERT INTO tbl_accounts (fname, lname, email, type, pass, status) VALUES (?, ?, ?, ?, ?, ?)";
+        con.addRecord(sql, firstname.getText(), lastname.getText(), Email.getText(), Type.getText(), Pass.getText(), "Pending");
         JOptionPane.showMessageDialog(null, "RECORD ADDED!");
     }//GEN-LAST:event_addUMouseClicked
 
-    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+    private void PassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_passActionPerformed
+    }//GEN-LAST:event_PassActionPerformed
 
     private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
         users Users = new users();
         Users.setVisible(true);
         dispose();
     }//GEN-LAST:event_UsersMouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel11MouseClicked
 
     /**
      * @param args the command line arguments
@@ -541,13 +527,15 @@ public class add extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Email;
     private javax.swing.JPanel Home;
+    private javax.swing.JPasswordField Pass;
     private javax.swing.JPanel Reports;
     private javax.swing.JPanel Settings;
+    private javax.swing.JTextField Type;
     private javax.swing.JPanel Users;
     private javax.swing.JPanel addU;
     private javax.swing.JPasswordField confpass;
-    private javax.swing.JTextField email;
     private javax.swing.JTextField firstname;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -576,7 +564,5 @@ public class add extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField lastname;
-    private javax.swing.JPasswordField pass;
-    private javax.swing.JTextField type;
     // End of variables declaration//GEN-END:variables
 }
