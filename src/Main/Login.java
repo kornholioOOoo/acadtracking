@@ -6,6 +6,8 @@
 package Main;
 
 import Admin.adminDashboard;
+import Admin.studentDashboard;
+import Admin.teacherDashboard;
 import Config.config;
 import javax.swing.JOptionPane;
 
@@ -154,7 +156,7 @@ public class Login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void PassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PassActionPerformed
@@ -171,16 +173,67 @@ public class Login extends javax.swing.JFrame {
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         config con = new config();
-        String sql = "SELECT * FROM tbl_accounts WHERE email = ? AND pass = ? AND status = ?";
-        if (con.authenticate(sql,Email.getText(),Pass.getText(),"Active")){
+
+        String email = Email.getText();
+        String password = Pass.getText();
+
+        if (email.equals("") || password.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill in all fields!");
+            return;
+        }
+
+        String sql = "SELECT a_id, status, type FROM tbl_accounts WHERE email = ? AND pass = ?";
+
+
+        String status = null;
+        String userType = null;
+
+        try (
+            java.sql.Connection conn = Config.config.connectDB();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        ) {
+
+            pst.setString(1, email);
+            pst.setString(2, password);
+
+            java.sql.ResultSet rs = pst.executeQuery();
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "Invalid email or password!");
+                return;
+            }
+
+            int userId = rs.getInt("a_id");     // get user ID
+            status = rs.getString("status");
+            userType = rs.getString("type");
+
+            Config.Session.userId = userId;     // ⭐ STEP 2 IMPLEMENTED
+
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Login Error: " + e.getMessage());
+            return;
+        }
+
+        if (!status.equalsIgnoreCase("Active")) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Your account is inactive. Please contact the administrator."
+            );
+            return;
+        }
+
         JOptionPane.showMessageDialog(null, "LOGIN SUCCESS!");
-        
-        adminDashboard ad = new adminDashboard();
-        ad.setVisible(true);
+
+        if (userType.equalsIgnoreCase("Admin")) {
+            new adminDashboard().setVisible(true);
+        } else if (userType.equalsIgnoreCase("Student")) {
+            new studentDashboard().setVisible(true);
+        } else if (userType.equalsIgnoreCase("Teacher")) {
+            new teacherDashboard().setVisible(true);
+        }
+
         dispose();
-        }else{
-                JOptionPane.showMessageDialog(null, "INVALID CREDENTIALS!");
-        };
     }//GEN-LAST:event_jPanel4MouseClicked
 
     /**
