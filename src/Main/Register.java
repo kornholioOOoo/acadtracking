@@ -228,8 +228,8 @@ public class Register extends javax.swing.JFrame {
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         config con = new config();
         
-        String sql = "INSERT INTO tbl_accounts (fname, lname, email, type, pass, confpass, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        con.addRecord(sql, firstname.getText(), lastname.getText(), email.getText(), type.getText(), pass.getText(), confpass.getText(), "Pending");
+        String sql = "INSERT INTO tbl_accounts (fname, lname, email, type, pass, status) VALUES (?, ?, ?, ?, ?, ?)";
+        con.addRecord(sql, firstname.getText(), lastname.getText(), email.getText(), type.getText(), pass.getText(), "Pending");
         JOptionPane.showMessageDialog(null, "RECORD ADDED!");
     }//GEN-LAST:event_jLabel14MouseClicked
 

@@ -208,7 +208,7 @@ public class Login extends javax.swing.JFrame {
             userType = rs.getString("type");
 
             Config.Session.userId = userId;     // ⭐ STEP 2 IMPLEMENTED
-
+            Config.Session.isLoggedIn = true;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Login Error: " + e.getMessage());

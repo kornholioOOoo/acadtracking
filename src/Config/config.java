@@ -97,4 +97,23 @@ public String authenticate(String sql, Object... values) {
     }
     return null;
 }
+
+// Overloaded method with parameters
+public void displayData(String sql, javax.swing.JTable table, Object... params) {
+    try (Connection conn = connectDB();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        for (int i = 0; i < params.length; i++) {
+            pstmt.setObject(i + 1, params[i]);
+        }
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            table.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error displaying data with params: " + e.getMessage());
+    }
+}
+
 }

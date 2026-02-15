@@ -11,53 +11,84 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import Config.config;
-import static Config.config.connectDB;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author USER27
- */
 public class profile extends javax.swing.JFrame {
 
-    /**
-     * Creates new form profile
-     */
     private int userId;
 
-    public profile(int userId) {
-    this.userId = userId;
+    // ✅ Constructor: No-arg version now safe
+    public profile() {
+    // Now no need for login check here
+    this.userId = Config.Session.userId;
     initComponents();
     displayData();
+}
+
+
+
+    // ✅ Optional: Constructor with explicit userId
+    public profile(int userId) {
+        if (!Config.Session.isLoggedIn) {
+            JOptionPane.showMessageDialog(null, "You must login first!");
+            new Main.Login().setVisible(true);
+            return;
+        }
+        this.userId = userId;
+        initComponents();
+        displayData();
     }
 
-    private profile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // Display user data in labels
+    private void displayData() {
+        try {
+            Connection con = config.connectDB();
+            String sql = "SELECT fname, lname, a_id, email, type, pass FROM tbl_accounts WHERE a_id = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, userId);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                Fn.setText(rs.getString("fname"));
+                Ln.setText(rs.getString("lname"));
+                id.setText(rs.getString("a_id"));
+                Em.setText(rs.getString("email"));
+                Ut.setText(rs.getString("type"));
+                Pw.setText(rs.getString("pass"));
+                fn.setText(rs.getString("fname"));
+                ln.setText(rs.getString("lname"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
-    private void displayData() {
-    try {
-        Connection con = config.connectDB();
-        String sql = "SELECT fname, lname, a_id, email, type, pass FROM tbl_accounts WHERE a_id = ?";
-        PreparedStatement pst = con.prepareStatement(sql);
-        pst.setInt(1, userId);
+    private void logout() {
+    // 1️⃣ Ask for confirmation
+    int choice = JOptionPane.showConfirmDialog(
+        this, 
+        "Are you sure you want to logout?", 
+        "Logout Confirmation", 
+        JOptionPane.YES_NO_OPTION, 
+        JOptionPane.QUESTION_MESSAGE
+    );
 
-        ResultSet rs = pst.executeQuery();
+    // 2️⃣ If user clicks YES, proceed
+    if (choice == JOptionPane.YES_OPTION) {
+        // Clear session
+        Config.Session.isLoggedIn = false;
+        Config.Session.userId = 0; // or -1 if preferred
 
-        if (rs.next()) {
-            Fn.setText(rs.getString("fname"));
-            Ln.setText(rs.getString("lname"));
-            id.setText(rs.getString("a_id"));
-            Em.setText(rs.getString("email"));
-            Ut.setText(rs.getString("type"));
-            Pw.setText(rs.getString("pass"));
-            fn.setText(rs.getString("fname"));
-            ln.setText(rs.getString("lname"));
-        }
+        // Show login form
+        new Main.Login().setVisible(true);
 
-    } catch (Exception e) {
-        e.printStackTrace();
+        // Close the current frame
+        this.dispose();
     }
+    // If NO, do nothing
 }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,6 +121,8 @@ public class profile extends javax.swing.JFrame {
         Em = new javax.swing.JLabel();
         Ut = new javax.swing.JLabel();
         Pw = new javax.swing.JLabel();
+        Logout = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -152,7 +185,7 @@ public class profile extends javax.swing.JFrame {
         ln.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel3.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 130, 26));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 330, 280));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, 330, 280));
 
         Back.setBackground(new java.awt.Color(0, 153, 153));
         Back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -170,18 +203,18 @@ public class profile extends javax.swing.JFrame {
         Back.setLayout(BackLayout);
         BackLayout.setHorizontalGroup(
             BackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BackLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackLayout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         BackLayout.setVerticalGroup(
             BackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(BackLayout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 460, 150, 40));
+        jPanel1.add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 450, 150, 40));
 
         Edit.setBackground(new java.awt.Color(0, 153, 153));
         Edit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -194,16 +227,16 @@ public class profile extends javax.swing.JFrame {
         Edit.setLayout(EditLayout);
         EditLayout.setHorizontalGroup(
             EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EditLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditLayout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         EditLayout.setVerticalGroup(
             EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 460, 150, 40));
+        jPanel1.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 450, 150, 40));
 
         Email.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Email.setText("Email:");
@@ -226,6 +259,33 @@ public class profile extends javax.swing.JFrame {
 
         Pw.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel1.add(Pw, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 150, 20));
+
+        Logout.setBackground(new java.awt.Color(0, 153, 153));
+        Logout.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LogoutMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("LOGOUT");
+
+        javax.swing.GroupLayout LogoutLayout = new javax.swing.GroupLayout(Logout);
+        Logout.setLayout(LogoutLayout);
+        LogoutLayout.setHorizontalGroup(
+            LogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+        );
+        LogoutLayout.setVerticalGroup(
+            LogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogoutLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 510, 330, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -253,6 +313,10 @@ public class profile extends javax.swing.JFrame {
     }
     dispose();
     }//GEN-LAST:event_BackMouseClicked
+
+    private void LogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseClicked
+        logout();
+    }//GEN-LAST:event_LogoutMouseClicked
     public void setColor(JPanel p){
         p.setBackground(new Color(0, 204, 204));
     }
@@ -264,36 +328,17 @@ public class profile extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    java.awt.EventQueue.invokeLater(() -> {
+        if (!Config.Session.isLoggedIn) {
+            // Show the login-required notification BEFORE opening profile
+            JOptionPane.showMessageDialog(null, "You must login first!");
+            new Main.Login().setVisible(true); // open login form
+        } else {
+            new profile().setVisible(true); // open profile normally
         }
-        //</editor-fold>
+    });
+}
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new profile().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Back;
@@ -305,6 +350,7 @@ public class profile extends javax.swing.JFrame {
     private javax.swing.JLabel Id;
     private javax.swing.JLabel Ln;
     private javax.swing.JLabel Lname;
+    private javax.swing.JPanel Logout;
     private javax.swing.JLabel Pass;
     private javax.swing.JLabel Pw;
     private javax.swing.JLabel Ut;
@@ -314,6 +360,7 @@ public class profile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

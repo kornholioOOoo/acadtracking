@@ -10,6 +10,8 @@ package Config;
  * @author USER27
  */
 public class Session {
+    public static boolean isLoggedIn = false;
     public static int userId;
+    public static int gradeId;
     
 }
