@@ -6,6 +6,10 @@
 package Main;
 
 import Config.config;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +17,26 @@ import javax.swing.JOptionPane;
  * @author Dell
  */
 public class Register extends javax.swing.JFrame {
+
+    private boolean emailAlreadyInUse(String mail) {
+        String normalized = mail == null ? "" : mail.trim().toLowerCase();
+        if (normalized.isEmpty()) {
+            return false;
+        }
+
+        String sql = "SELECT 1 FROM tbl_accounts WHERE lower(email) = ? LIMIT 1";
+        try (Connection conn = config.connectDB();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, normalized);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            // If we can't verify, don't block registration silently.
+            JOptionPane.showMessageDialog(null, "Unable to validate email right now. Please try again.");
+            return true;
+        }
+    }
 
     /**
      * Creates new form Register
@@ -228,6 +252,36 @@ public class Register extends javax.swing.JFrame {
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         config con = new config();
         
+        
+        String fname = firstname.getText().trim();
+        String lname = lastname.getText().trim();
+        String mail = email.getText().trim();
+        String usertype = type.getText().trim();
+        String password = pass.getText().trim();
+        String cpassword = confpass.getText().trim();
+
+        // Check if fields are empty
+        if(fname.isEmpty() || lname.isEmpty() || mail.isEmpty() || usertype.isEmpty() 
+            || password.isEmpty() || cpassword.isEmpty()){
+
+            JOptionPane.showMessageDialog(null, "All fields are required!");
+            return;
+        }
+
+        // Check if passwords match
+        if(!password.equals(cpassword)){
+            JOptionPane.showMessageDialog(null, "Passwords do not match!");
+            return;
+        }
+
+        // Check if email is already in use
+        if (emailAlreadyInUse(mail)) {
+            JOptionPane.showMessageDialog(null, "Email is already in use. Please choose another email.");
+            email.requestFocus();
+            email.selectAll();
+            return;
+        }
+    
         String sql = "INSERT INTO tbl_accounts (fname, lname, email, type, pass, status) VALUES (?, ?, ?, ?, ?, ?)";
         con.addRecord(sql, firstname.getText(), lastname.getText(), email.getText(), type.getText(), pass.getText(), "Pending");
         JOptionPane.showMessageDialog(null, "RECORD ADDED!");

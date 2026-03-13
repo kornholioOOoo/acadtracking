@@ -6,22 +6,49 @@
 package Admin;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import Config.config;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.SwingUtilities;
 
 public class profile extends javax.swing.JFrame {
 
     private int userId;
+    private JLabel profilePicLabel;
+    private String profilePicPath;
+    private BufferedImage profilePicOriginal;
+    private JButton togglePwBtn;
+    private boolean passwordVisible = false;
+    private String passwordValue = "";
 
     // ✅ Constructor: No-arg version now safe
     public profile() {
     // Now no need for login check here
     this.userId = Config.Session.userId;
     initComponents();
+    initProfilePictureUI();
+    applyTheme();
     displayData();
 }
 
@@ -36,31 +63,463 @@ public class profile extends javax.swing.JFrame {
         }
         this.userId = userId;
         initComponents();
+        initProfilePictureUI();
+        applyTheme();
         displayData();
+    }
+
+    private void applyTheme() {
+        // Keep the same palette, just make it feel more "designed"
+        Color teal = new Color(0, 153, 153);
+        Color lightTeal = new Color(0, 204, 204);
+        Color textDark = new Color(0, 51, 51);
+
+        jPanel1.setBackground(lightTeal);
+        jPanel2.setBackground(teal);
+
+        // Card-like look for the picture panel
+        jPanel3.setBackground(teal);
+        jPanel3.setBorder(new CompoundBorder(new LineBorder(new Color(255, 255, 255, 80), 1, true), new EmptyBorder(8, 8, 8, 8)));
+
+        // Improve label typography
+        java.awt.Font labelFont = new java.awt.Font("Tahoma", java.awt.Font.BOLD, 18);
+        java.awt.Font valueFont = new java.awt.Font("Tahoma", java.awt.Font.BOLD, 14);
+
+        Fname.setFont(labelFont);
+        Lname.setFont(labelFont);
+        Id.setFont(labelFont);
+        Email.setFont(labelFont);
+        Utype.setFont(labelFont);
+        Pass.setFont(labelFont);
+
+        Fn.setFont(valueFont);
+        Ln.setFont(valueFont);
+        id.setFont(valueFont);
+        Em.setFont(valueFont);
+        Ut.setFont(valueFont);
+        Pw.setFont(valueFont);
+
+        Fname.setForeground(textDark);
+        Lname.setForeground(textDark);
+        Id.setForeground(textDark);
+        Email.setForeground(textDark);
+        Utype.setForeground(textDark);
+        Pass.setForeground(textDark);
+
+        Fn.setForeground(textDark);
+        Ln.setForeground(textDark);
+        id.setForeground(textDark);
+        Em.setForeground(textDark);
+        Ut.setForeground(textDark);
+        Pw.setForeground(textDark);
+
+        // Make interactive panels feel clickable
+        styleActionPanel(Edit);
+        styleActionPanel(Back);
+        styleActionPanel(Logout);
+
+        // Password toggle button polish
+        if (togglePwBtn != null) {
+            togglePwBtn.setBackground(teal);
+            togglePwBtn.setForeground(Color.WHITE);
+            togglePwBtn.setBorder(new CompoundBorder(new LineBorder(new Color(255, 255, 255, 120), 1, true), new EmptyBorder(4, 10, 4, 10)));
+            togglePwBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            SwingUtilities.invokeLater(this::positionTogglePwButton);
+        }
+
+        // Picture label polish (fills panel; keep centered text when no image)
+        if (profilePicLabel != null) {
+            profilePicLabel.setBackground(lightTeal);
+            profilePicLabel.setBorder(new LineBorder(new Color(255, 255, 255, 120), 1, true));
+            profilePicLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            profilePicLabel.setText(profilePicLabel.getIcon() == null ? "Click to add photo" : null);
+        }
+
+        // Small name text in the lower area should read nicely
+        fn.setForeground(Color.BLACK);
+        ln.setForeground(Color.BLACK);
+
+        repaint();
+    }
+
+    private void styleActionPanel(JPanel panel) {
+        if (panel == null) return;
+        panel.setBackground(new Color(0, 153, 153));
+        panel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        // Add hover effect without requiring form edits
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                panel.setBackground(new Color(0, 204, 204));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                panel.setBackground(new Color(0, 153, 153));
+            }
+        });
+    }
+
+    private void initProfilePictureUI() {
+        // Add a profile picture placeholder into jPanel3 without modifying generated code.
+        if (profilePicLabel == null) {
+            profilePicLabel = new JLabel("No Photo", JLabel.CENTER);
+            profilePicLabel.setOpaque(true);
+            profilePicLabel.setBackground(new Color(0, 204, 204));
+            profilePicLabel.setForeground(Color.WHITE);
+            jPanel3.add(profilePicLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, jPanel3.getWidth(), jPanel3.getHeight()));
+
+            // Click the picture area to change it
+            profilePicLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    chooseAndSaveProfilePicture();
+                }
+            });
+
+            // Keep picture fully occupying the panel (and re-scale on resize)
+            jPanel3.addComponentListener(new java.awt.event.ComponentAdapter() {
+                @Override
+                public void componentResized(java.awt.event.ComponentEvent e) {
+                    profilePicLabel.setBounds(0, 0, jPanel3.getWidth(), jPanel3.getHeight());
+                    refreshProfilePictureScale();
+                }
+            });
+        }
+
+        // Keep the "Edit" feature for editing credentials
+        Edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editCredentials();
+            }
+        });
+
+        initPasswordToggleUI();
+
+        loadProfilePictureFromDisk();
+        jPanel3.revalidate();
+        jPanel3.repaint();
+    }
+
+    private void initPasswordToggleUI() {
+        if (togglePwBtn != null) {
+            return;
+        }
+
+        togglePwBtn = new JButton("Show");
+        togglePwBtn.setBackground(new Color(0, 153, 153));
+        togglePwBtn.setForeground(Color.WHITE);
+        togglePwBtn.setFocusable(false);
+        togglePwBtn.setMargin(new java.awt.Insets(2, 8, 2, 8));
+        togglePwBtn.addActionListener(e -> togglePasswordVisibility());
+
+        // Add first, then position it based on the Pw label bounds
+        jPanel4.add(togglePwBtn);
+        togglePwBtn.setBounds(Pw.getX() + Pw.getWidth() + 10, Pw.getY(), 70, 28);
+        jPanel1.revalidate();
+        jPanel1.repaint();
+
+        SwingUtilities.invokeLater(this::positionTogglePwButton);
+        updatePasswordDisplay();
+    }
+
+    private void positionTogglePwButton() {
+        if (togglePwBtn == null || Pw == null) return;
+
+        java.awt.Dimension pref = togglePwBtn.getPreferredSize();
+        int btnW = Math.max(70, pref.width);
+        int btnH = Math.max(28, pref.height);
+
+        int gap = 10;
+        int x = Pw.getX() + Pw.getWidth() + gap;
+        int y = Pw.getY() + Math.max(0, (Pw.getHeight() - btnH) / 2);
+
+        // Keep inside jPanel1 bounds
+        int maxX = Math.max(0, jPanel4.getWidth() - btnW - 10);
+        if (x > maxX) x = maxX;
+
+        togglePwBtn.setBounds(x, y, btnW, btnH);
+        togglePwBtn.revalidate();
+        togglePwBtn.repaint();
+    }
+
+    private void togglePasswordVisibility() {
+        passwordVisible = !passwordVisible;
+        updatePasswordDisplay();
+    }
+
+    private void updatePasswordDisplay() {
+        if (Pw == null) return;
+
+        if (passwordValue == null) {
+            passwordValue = "";
+        }
+
+        if (passwordVisible) {
+            Pw.setText(passwordValue);
+            if (togglePwBtn != null) togglePwBtn.setText("Hide");
+        } else {
+            Pw.setText(maskPassword(passwordValue));
+            if (togglePwBtn != null) togglePwBtn.setText("Show");
+        }
+    }
+
+    private String maskPassword(String s) {
+        if (s == null || s.isEmpty()) return "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) sb.append('*');
+        return sb.toString();
+    }
+
+    private Path getUserProfilePicturePath(String extension) {
+        String safeExt = (extension == null || extension.trim().isEmpty()) ? "png" : extension.toLowerCase();
+        return Paths.get("profile_pics", "user_" + userId + "." + safeExt);
+    }
+
+    private void loadProfilePictureFromDisk() {
+        // Try common extensions
+        String[] exts = new String[] { "png", "jpg", "jpeg" };
+        for (String ext : exts) {
+            Path p = getUserProfilePicturePath(ext);
+            if (Files.exists(p)) {
+                profilePicPath = p.toString();
+                setProfilePictureIcon(new File(profilePicPath));
+                return;
+            }
+        }
+    }
+
+    private void chooseAndSaveProfilePicture() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Select Profile Picture");
+        chooser.setFileFilter(new FileNameExtensionFilter("Image Files (png, jpg, jpeg)", "png", "jpg", "jpeg"));
+
+        int result = chooser.showOpenDialog(this);
+        if (result != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        File selected = chooser.getSelectedFile();
+        if (selected == null || !selected.exists()) {
+            JOptionPane.showMessageDialog(null, "Invalid file selected.");
+            return;
+        }
+
+        String name = selected.getName();
+        String ext = "png";
+        int dot = name.lastIndexOf('.');
+        if (dot >= 0 && dot < name.length() - 1) {
+            ext = name.substring(dot + 1).toLowerCase();
+        }
+        if (!(ext.equals("png") || ext.equals("jpg") || ext.equals("jpeg"))) {
+            JOptionPane.showMessageDialog(null, "Please select a PNG/JPG image.");
+            return;
+        }
+
+        try {
+            Path dir = Paths.get("profile_pics");
+            Files.createDirectories(dir);
+
+            Path dest = getUserProfilePicturePath(ext);
+            Files.copy(selected.toPath(), dest, StandardCopyOption.REPLACE_EXISTING);
+            profilePicPath = dest.toString();
+
+            setProfilePictureIcon(dest.toFile());
+            JOptionPane.showMessageDialog(null, "Profile picture updated!");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Failed to save profile picture: " + e.getMessage());
+        }
+    }
+
+    private void setProfilePictureIcon(File imageFile) {
+        try {
+            if (profilePicLabel == null) return;
+
+            // Validate image by reading it
+            BufferedImage img = ImageIO.read(imageFile);
+            if (img == null) {
+                JOptionPane.showMessageDialog(null, "Selected file is not a valid image.");
+                return;
+            }
+
+            profilePicOriginal = img;
+            int w = profilePicLabel.getWidth() > 0 ? profilePicLabel.getWidth() : jPanel3.getWidth();
+            int h = profilePicLabel.getHeight() > 0 ? profilePicLabel.getHeight() : jPanel3.getHeight();
+            if (w <= 0) w = 330;
+            if (h <= 0) h = 270;
+            Image scaled = img.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+            profilePicLabel.setText(null);
+            profilePicLabel.setIcon(new ImageIcon(scaled));
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Failed to load image: " + e.getMessage());
+        }
+    }
+
+    private void refreshProfilePictureScale() {
+        if (profilePicLabel == null || profilePicOriginal == null) return;
+        int w = profilePicLabel.getWidth();
+        int h = profilePicLabel.getHeight();
+        if (w <= 0 || h <= 0) return;
+        Image scaled = profilePicOriginal.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+        profilePicLabel.setText(null);
+        profilePicLabel.setIcon(new ImageIcon(scaled));
+    }
+
+    private boolean emailAlreadyInUseByOther(String mail) {
+        String normalized = mail == null ? "" : mail.trim().toLowerCase();
+        if (normalized.isEmpty()) return false;
+
+        String sql = "SELECT 1 FROM tbl_accounts WHERE lower(email) = ? AND a_id <> ? LIMIT 1";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = config.connectDB();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, normalized);
+            ps.setInt(2, userId);
+            rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Unable to validate email right now. Please try again.");
+            return true;
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ignored) {
+            }
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ignored) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ignored) {
+            }
+        }
+    }
+
+    private void editCredentials() {
+        javax.swing.JTextField first = new javax.swing.JTextField(Fn.getText());
+        javax.swing.JTextField last = new javax.swing.JTextField(Ln.getText());
+        javax.swing.JTextField mail = new javax.swing.JTextField(Em.getText());
+        javax.swing.JPasswordField passField = new javax.swing.JPasswordField(passwordValue);
+
+        javax.swing.JPanel p = new javax.swing.JPanel(new java.awt.GridLayout(0, 1, 8, 8));
+        p.add(new javax.swing.JLabel("First name"));
+        p.add(first);
+        p.add(new javax.swing.JLabel("Last name"));
+        p.add(last);
+        p.add(new javax.swing.JLabel("Email"));
+        p.add(mail);
+        p.add(new javax.swing.JLabel("Password"));
+        p.add(passField);
+
+        int choice = JOptionPane.showConfirmDialog(this, p, "Edit Profile", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (choice != JOptionPane.OK_OPTION) return;
+
+        String newF = first.getText().trim();
+        String newL = last.getText().trim();
+        String newE = mail.getText().trim();
+        String newP = new String(passField.getPassword()).trim();
+
+        if (newF.isEmpty() || newL.isEmpty() || newE.isEmpty() || newP.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "All fields are required!");
+            return;
+        }
+
+        if (emailAlreadyInUseByOther(newE)) {
+            JOptionPane.showMessageDialog(null, "Email is already in use. Please choose another email.");
+            return;
+        }
+
+        String sql = "UPDATE tbl_accounts SET fname = ?, lname = ?, email = ?, pass = ? WHERE a_id = ?";
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = config.connectDB();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, newF);
+            ps.setString(2, newL);
+            ps.setString(3, newE);
+            ps.setString(4, newP);
+            ps.setInt(5, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Failed to update profile: " + e.getMessage());
+            return;
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ignored) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ignored) {
+            }
+        }
+
+        displayData();
+        JOptionPane.showMessageDialog(null, "Profile updated!");
     }
 
     // Display user data in labels
     private void displayData() {
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
-            Connection con = config.connectDB();
+            con = config.connectDB();
             String sql = "SELECT fname, lname, a_id, email, type, pass FROM tbl_accounts WHERE a_id = ?";
-            PreparedStatement pst = con.prepareStatement(sql);
+            pst = con.prepareStatement(sql);
             pst.setInt(1, userId);
 
-            ResultSet rs = pst.executeQuery();
+            rs = pst.executeQuery();
             if (rs.next()) {
                 Fn.setText(rs.getString("fname"));
                 Ln.setText(rs.getString("lname"));
                 id.setText(rs.getString("a_id"));
                 Em.setText(rs.getString("email"));
                 Ut.setText(rs.getString("type"));
-                Pw.setText(rs.getString("pass"));
+                passwordValue = rs.getString("pass");
+                updatePasswordDisplay();
                 fn.setText(rs.getString("fname"));
                 ln.setText(rs.getString("lname"));
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Failed to load profile: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ignored) {
+            }
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (SQLException ignored) {
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ignored) {
+            }
         }
     }
     
@@ -102,27 +561,28 @@ public class profile extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        Fname = new javax.swing.JLabel();
-        Lname = new javax.swing.JLabel();
-        Id = new javax.swing.JLabel();
-        Utype = new javax.swing.JLabel();
-        Pass = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        fn = new javax.swing.JLabel();
-        ln = new javax.swing.JLabel();
         Back = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         Edit = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        Email = new javax.swing.JLabel();
-        Fn = new javax.swing.JLabel();
-        Ln = new javax.swing.JLabel();
-        id = new javax.swing.JLabel();
-        Em = new javax.swing.JLabel();
-        Ut = new javax.swing.JLabel();
-        Pw = new javax.swing.JLabel();
         Logout = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        fn = new javax.swing.JLabel();
+        ln = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        Pw = new javax.swing.JLabel();
+        Pass = new javax.swing.JLabel();
+        Ut = new javax.swing.JLabel();
+        Utype = new javax.swing.JLabel();
+        Email = new javax.swing.JLabel();
+        Em = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
+        Id = new javax.swing.JLabel();
+        Ln = new javax.swing.JLabel();
+        Lname = new javax.swing.JLabel();
+        Fname = new javax.swing.JLabel();
+        Fn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,37 +615,9 @@ public class profile extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 120));
 
-        Fname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Fname.setText("First Name:");
-        jPanel1.add(Fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
-
-        Lname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Lname.setText("Last Name:");
-        jPanel1.add(Lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
-
-        Id.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Id.setText("ID:");
-        jPanel1.add(Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, -1, -1));
-
-        Utype.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Utype.setText("User type:");
-        jPanel1.add(Utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, -1));
-
-        Pass.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Pass.setText("Password:");
-        jPanel1.add(Pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, -1, -1));
-
         jPanel3.setBackground(new java.awt.Color(0, 153, 153));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        fn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        fn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel3.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 130, 26));
-
-        ln.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel3.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 130, 26));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, 330, 280));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, 330, 270));
 
         Back.setBackground(new java.awt.Color(0, 153, 153));
         Back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -214,7 +646,7 @@ public class profile extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 450, 150, 40));
+        jPanel1.add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 460, 150, 40));
 
         Edit.setBackground(new java.awt.Color(0, 153, 153));
         Edit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -233,32 +665,10 @@ public class profile extends javax.swing.JFrame {
         );
         EditLayout.setVerticalGroup(
             EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 450, 150, 40));
-
-        Email.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Email.setText("Email:");
-        jPanel1.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
-
-        Fn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(Fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 150, 20));
-
-        Ln.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(Ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 150, 20));
-
-        id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 150, 20));
-
-        Em.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(Em, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 150, 20));
-
-        Ut.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(Ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 150, 20));
-
-        Pw.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(Pw, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 150, 20));
+        jPanel1.add(Edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 460, 150, 40));
 
         Logout.setBackground(new java.awt.Color(0, 153, 153));
         Logout.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -287,6 +697,106 @@ public class profile extends javax.swing.JFrame {
 
         jPanel1.add(Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 510, 330, -1));
 
+        fn.setBackground(new java.awt.Color(0, 0, 0));
+        fn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        fn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanel1.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 430, 130, 26));
+
+        ln.setBackground(new java.awt.Color(0, 0, 0));
+        ln.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel1.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 430, 130, 26));
+
+        jPanel4.setBackground(new java.awt.Color(0, 153, 153));
+
+        Pw.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Pass.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Pass.setText("Password:");
+
+        Ut.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Utype.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Utype.setText("User type:");
+
+        Email.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Email.setText("Email:");
+
+        Em.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Id.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Id.setText("ID:");
+
+        Ln.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        Lname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Lname.setText("Last Name:");
+
+        Fname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Fname.setText("First Name:");
+
+        Fn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Pass)
+                    .addComponent(Utype)
+                    .addComponent(Email)
+                    .addComponent(Id)
+                    .addComponent(Lname)
+                    .addComponent(Fname))
+                .addGap(84, 84, 84)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Em, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ut, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pw, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ln, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Fn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(211, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(Fn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(37, 37, 37)
+                        .addComponent(Ln, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(Fname)
+                        .addGap(36, 36, 36)
+                        .addComponent(Lname)))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Id)
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Email)
+                    .addComponent(Em, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(Ut, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(Pw, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(Utype)
+                        .addGap(36, 36, 36)
+                        .addComponent(Pass)))
+                .addGap(40, 40, 40))
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 570, 400));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,15 +811,16 @@ public class profile extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseClicked
         if (Ut.getText().equalsIgnoreCase("Admin")) {
-        new adminDashboard().setVisible(true);
-    } else if (Ut.getText().equalsIgnoreCase("Student")) {
+        new adminDashboardOrig().setVisible(true);
+    } else if(Ut.getText().equalsIgnoreCase("Student")) {
         new studentDashboard().setVisible(true);
-    } else {
-        new teacherDashboard().setVisible(true);
+    } else if(Ut.getText().equalsIgnoreCase("Teacher")) {
+        new adminDashboard().setVisible(true);
     }
     dispose();
     }//GEN-LAST:event_BackMouseClicked
@@ -364,6 +875,7 @@ public class profile extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel ln;
     // End of variables declaration//GEN-END:variables
 

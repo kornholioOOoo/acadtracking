@@ -6,8 +6,8 @@
 package Main;
 
 import Admin.adminDashboard;
+import Admin.adminDashboardOrig;
 import Admin.studentDashboard;
-import Admin.teacherDashboard;
 import Config.config;
 import javax.swing.JOptionPane;
 
@@ -226,11 +226,11 @@ public class Login extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "LOGIN SUCCESS!");
 
         if (userType.equalsIgnoreCase("Admin")) {
-            new adminDashboard().setVisible(true);
+            new adminDashboardOrig().setVisible(true);
         } else if (userType.equalsIgnoreCase("Student")) {
             new studentDashboard().setVisible(true);
         } else if (userType.equalsIgnoreCase("Teacher")) {
-            new teacherDashboard().setVisible(true);
+            new adminDashboard().setVisible(true);
         }
 
         dispose();

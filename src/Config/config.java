@@ -24,6 +24,10 @@ public static Connection connectDB() {
         try {
             Class.forName("org.sqlite.JDBC"); // Load the SQLite JDBC driver
             con = DriverManager.getConnection("jdbc:sqlite:acadtrackDB.db"); // Establish connection
+            // Give SQLite time to wait for locks instead of failing immediately
+            try (PreparedStatement ps = con.prepareStatement("PRAGMA busy_timeout = 5000")) {
+                ps.execute();
+            }
             System.out.println("Connection Successful");
         } catch (Exception e) {
             System.out.println("Connection Failed: " + e);
