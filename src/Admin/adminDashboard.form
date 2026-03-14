@@ -161,7 +161,7 @@
                       <Font name="Arial Black" size="18" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Subjects"/>
+                    <Property name="text" type="java.lang.String" value="Subjects Handled"/>
                   </Properties>
                 </Component>
               </SubComponents>

@@ -106,7 +106,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Subjects");
+        jLabel6.setText("Subjects Handled");
 
         javax.swing.GroupLayout SubjectsLayout = new javax.swing.GroupLayout(Subjects);
         Subjects.setLayout(SubjectsLayout);
@@ -278,8 +278,8 @@ public class adminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_SubjectsMouseEntered
 
     private void SubjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubjectsMouseClicked
-        users Users = new users();
-        Users.setVisible(true);
+        subjectsHandled Subjects = new subjectsHandled();
+        Subjects.setVisible(true);
         dispose();
     }//GEN-LAST:event_SubjectsMouseClicked
 

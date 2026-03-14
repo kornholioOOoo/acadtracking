@@ -707,93 +707,49 @@ public class profile extends javax.swing.JFrame {
         jPanel1.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 430, 130, 26));
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Pw.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel4.add(Pw, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 340, 150, 20));
 
         Pass.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Pass.setText("Password:");
+        jPanel4.add(Pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 338, -1, -1));
 
         Ut.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel4.add(Ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 287, 150, 20));
 
         Utype.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Utype.setText("User type:");
+        jPanel4.add(Utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 280, -1, -1));
 
         Email.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Email.setText("Email:");
+        jPanel4.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 224, -1, -1));
 
         Em.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel4.add(Em, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 226, 150, 20));
 
         id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel4.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 167, 150, 20));
 
         Id.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Id.setText("ID:");
+        jPanel4.add(Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 167, -1, -1));
 
         Ln.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel4.add(Ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 112, 150, 20));
 
         Lname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Lname.setText("Last Name:");
+        jPanel4.add(Lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 110, -1, -1));
 
         Fname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Fname.setText("First Name:");
+        jPanel4.add(Fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 52, -1, -1));
 
         Fn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Pass)
-                    .addComponent(Utype)
-                    .addComponent(Email)
-                    .addComponent(Id)
-                    .addComponent(Lname)
-                    .addComponent(Fname))
-                .addGap(84, 84, 84)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Em, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Ut, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Pw, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Ln, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Fn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(211, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(Fn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(37, 37, 37)
-                        .addComponent(Ln, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(Fname)
-                        .addGap(36, 36, 36)
-                        .addComponent(Lname)))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Id)
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Email)
-                    .addComponent(Em, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(Ut, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(Pw, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(Utype)
-                        .addGap(36, 36, 36)
-                        .addComponent(Pass)))
-                .addGap(40, 40, 40))
-        );
+        jPanel4.add(Fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 52, 150, 23));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 570, 400));
 

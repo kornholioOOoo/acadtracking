@@ -62,10 +62,6 @@ public class Allgrades extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         SearchText = new javax.swing.JTextField();
-        Update = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        Add = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
         Delete = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
 
@@ -271,38 +267,6 @@ public class Allgrades extends javax.swing.JFrame {
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 220, 110, 30));
         jPanel1.add(SearchText, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 360, 30));
 
-        Update.setBackground(new java.awt.Color(0, 153, 153));
-        Update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Update.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                UpdateMouseClicked(evt);
-            }
-        });
-        Update.setLayout(null);
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel11.setText("Update");
-        Update.add(jLabel11);
-        jLabel11.setBounds(30, 0, 59, 30);
-
-        jPanel1.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 110, 30));
-
-        Add.setBackground(new java.awt.Color(0, 153, 153));
-        Add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Add.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddMouseClicked(evt);
-            }
-        });
-        Add.setLayout(null);
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel14.setText("Add");
-        Add.add(jLabel14);
-        jLabel14.setBounds(40, 0, 32, 30);
-
-        jPanel1.add(Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 110, 30));
-
         Delete.setBackground(new java.awt.Color(0, 153, 153));
         Delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Delete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -313,11 +277,12 @@ public class Allgrades extends javax.swing.JFrame {
         Delete.setLayout(null);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Delete");
         Delete.add(jLabel12);
-        jLabel12.setBounds(30, 0, 54, 30);
+        jLabel12.setBounds(0, 0, 140, 30);
 
-        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 110, 30));
+        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 420, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -383,54 +348,6 @@ public class Allgrades extends javax.swing.JFrame {
         resetColor(Reports);
     }//GEN-LAST:event_ReportsMouseExited
 
-    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        config conf = new config();
-
-        String keyword = SearchText.getText().trim();
-
-        if (keyword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a name or email to search.");
-            return;
-        }
-
-        String sql = "SELECT a_id, fname, email, pass, type, status " +
-        "FROM tbl_accounts WHERE fname LIKE '%" + keyword + "%' " +
-        "OR email LIKE '%" + keyword + "%'";
-
-        conf.displayData(sql, gradestable);
-
-        if (gradestable.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Doesn't Exist");
-            displayGrades();
-        }
-    }//GEN-LAST:event_jPanel6MouseClicked
-
-    private void UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseClicked
-        int row = gradestable.getSelectedRow();
-
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a user to update.");
-            return;
-        }
-
-        int a_id = Integer.parseInt(gradestable.getValueAt(row, 0).toString());
-        String fname = gradestable.getValueAt(row, 1).toString();
-        String lname = gradestable.getValueAt(row, 2).toString();
-        String email = gradestable.getValueAt(row, 3).toString();
-        String pass = gradestable.getValueAt(row, 4).toString();
-        String type = gradestable.getValueAt(row, 5).toString();
-
-        Update up = new Update (a_id, fname, lname, email, pass, type);
-        up.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_UpdateMouseClicked
-
-    private void AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseClicked
-        addG Add = new addG();
-        Add.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_AddMouseClicked
-
     private void DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseClicked
         int row = gradestable.getSelectedRow();
         if (row == -1) {
@@ -462,6 +379,28 @@ public class Allgrades extends javax.swing.JFrame {
     private void SubjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubjectsMouseClicked
         
     }//GEN-LAST:event_SubjectsMouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        config conf = new config();
+
+        String keyword = SearchText.getText().trim();
+
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a name or email to search.");
+            return;
+        }
+
+        String sql = "SELECT a_id, fname, email, pass, type, status " +
+        "FROM tbl_accounts WHERE fname LIKE '%" + keyword + "%' " +
+        "OR email LIKE '%" + keyword + "%'";
+
+        conf.displayData(sql, gradestable);
+
+        if (gradestable.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Doesn't Exist");
+            displayGrades();
+        }
+    }//GEN-LAST:event_jPanel6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -500,7 +439,6 @@ public class Allgrades extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Add;
     private javax.swing.JPanel Delete;
     private javax.swing.JLabel Grades;
     private javax.swing.JPanel Home;
@@ -508,13 +446,10 @@ public class Allgrades extends javax.swing.JFrame {
     private javax.swing.JPanel Reports;
     private javax.swing.JTextField SearchText;
     private javax.swing.JPanel Subjects;
-    private javax.swing.JPanel Update;
     private javax.swing.JTable gradestable;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

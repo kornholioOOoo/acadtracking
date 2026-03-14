@@ -8,6 +8,12 @@ package Admin;
 import Config.Session;
 import Config.config;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -28,10 +34,11 @@ public class subjects extends javax.swing.JFrame {
         return; // stop constructor, users form is never initialized
     }
         initComponents();
+        displaySubjects();
     }
     void displaySubjects(){
         config cn = new config();
-        String sql = "SELECT * FROM tbl_grades";
+        String sql = "SELECT * FROM tbl_subjects";
         cn.displayData(sql, subjectstable);
     }
     /**
@@ -67,9 +74,8 @@ public class subjects extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         Delete = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        Assign = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -254,7 +260,7 @@ public class subjects extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(subjectstable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 750, 300));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 930, 330));
 
         jPanel6.setBackground(new java.awt.Color(0, 153, 153));
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -286,9 +292,9 @@ public class subjects extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Update");
         Update.add(jLabel11);
-        jLabel11.setBounds(0, 0, 150, 30);
+        jLabel11.setBounds(0, 0, 100, 30);
 
-        jPanel1.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 150, 30));
+        jPanel1.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 100, 30));
 
         Add.setBackground(new java.awt.Color(0, 153, 153));
         Add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -303,9 +309,9 @@ public class subjects extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Add");
         Add.add(jLabel15);
-        jLabel15.setBounds(0, 0, 170, 30);
+        jLabel15.setBounds(0, 0, 100, 30);
 
-        jPanel1.add(Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 170, 30));
+        jPanel1.add(Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 100, 30));
 
         Delete.setBackground(new java.awt.Color(0, 153, 153));
         Delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -320,48 +326,36 @@ public class subjects extends javax.swing.JFrame {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Delete");
         Delete.add(jLabel12);
-        jLabel12.setBounds(0, 0, 160, 30);
+        jLabel12.setBounds(0, 0, 100, 30);
 
-        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 160, 30));
+        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 100, 30));
 
-        jPanel4.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Assign.setBackground(new java.awt.Color(0, 153, 153));
+        Assign.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Assign.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AssignMouseClicked(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Assign subject");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+        javax.swing.GroupLayout AssignLayout = new javax.swing.GroupLayout(Assign);
+        Assign.setLayout(AssignLayout);
+        AssignLayout.setHorizontalGroup(
+            AssignLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 170, 80));
-
-        jPanel5.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 26, Short.MAX_VALUE)
+        AssignLayout.setVerticalGroup(
+            AssignLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AssignLayout.createSequentialGroup()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 170, -1));
+        jPanel1.add(Assign, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 160, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -430,15 +424,15 @@ public class subjects extends javax.swing.JFrame {
         String keyword = SearchText.getText().trim();
 
         if (keyword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a name or email to search.");
+            JOptionPane.showMessageDialog(this, "Please enter a subject code or name to search.");
             return;
         }
 
-        String sql = "SELECT a_id, fname, email, pass, type, status " +
-        "FROM tbl_accounts WHERE fname LIKE '%" + keyword + "%' " +
-        "OR email LIKE '%" + keyword + "%'";
+        String sql = "SELECT s_id, s_code, s_name, units, yearlvl, sem " +
+        "FROM tbl_subjects WHERE s_code LIKE ? OR s_name LIKE ?";
 
-        conf.displayData(sql, subjectstable);
+        String like = "%" + keyword + "%";
+        conf.displayData(sql, subjectstable, like, like);
 
         if (subjectstable.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Doesn't Exist");
@@ -450,24 +444,24 @@ public class subjects extends javax.swing.JFrame {
         int row = subjectstable.getSelectedRow();
 
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a user to update.");
+            JOptionPane.showMessageDialog(this, "Choose a subject to update.");
             return;
         }
 
-        int a_id = Integer.parseInt(subjectstable.getValueAt(row, 0).toString());
-        String fname = subjectstable.getValueAt(row, 1).toString();
-        String lname = subjectstable.getValueAt(row, 2).toString();
-        String email = subjectstable.getValueAt(row, 3).toString();
-        String pass = subjectstable.getValueAt(row, 4).toString();
-        String type = subjectstable.getValueAt(row, 5).toString();
+        int s_id = Integer.parseInt(subjectstable.getValueAt(row, 0).toString());
+        String s_code = subjectstable.getValueAt(row, 1).toString();
+        String s_name = subjectstable.getValueAt(row, 2).toString();
+        String units = subjectstable.getValueAt(row, 3).toString();
+        String yearlvl = subjectstable.getValueAt(row, 4).toString();
+        String sem = subjectstable.getValueAt(row, 5).toString();
 
-        Update up = new Update (a_id, fname, lname, email, pass, type);
+        UpdateSub up = new UpdateSub(s_id, s_code, s_name, units, yearlvl, sem);
         up.setVisible(true);
         dispose();
     }//GEN-LAST:event_UpdateMouseClicked
 
     private void AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseClicked
-        addG Add = new addG();
+        addS Add = new addS();
         Add.setVisible(true);
         dispose();
     }//GEN-LAST:event_AddMouseClicked
@@ -475,24 +469,89 @@ public class subjects extends javax.swing.JFrame {
     private void DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseClicked
         int row = subjectstable.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Select a user first!");
+            JOptionPane.showMessageDialog(this, "Choose a subject to delete.");
             return;
         }
 
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this subject?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
 
         if (confirm != JOptionPane.YES_OPTION) return;
 
         int id = Integer.parseInt(subjectstable.getValueAt(row, 0).toString());
 
         config con = new config();
-        String sql = "DELETE FROM tbl_accounts WHERE a_id = ?";
+        String sql = "DELETE FROM tbl_subjects WHERE s_id = ?";
 
         con.addRecord(sql, id);
 
-        JOptionPane.showMessageDialog(this, "User deleted successfully!");
+        JOptionPane.showMessageDialog(this, "Subject deleted successfully!");
         displaySubjects();
     }//GEN-LAST:event_DeleteMouseClicked
+
+    private void AssignMouseClicked(java.awt.event.MouseEvent evt) {
+        int row = subjectstable.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Choose a subject to assign to a teacher.");
+            return;
+        }
+
+        int subjectId = Integer.parseInt(subjectstable.getValueAt(row, 0).toString());
+
+        List<Integer> teacherIds = new ArrayList<>();
+        List<String> teacherNames = new ArrayList<>();
+
+        try (Connection conn = config.connectDB();
+             PreparedStatement ps = conn.prepareStatement("SELECT a_id, fname, lname FROM tbl_accounts WHERE type = 'Teacher' AND status = 'Active'")) {
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("a_id");
+                    String name = rs.getString("fname") + " " + rs.getString("lname");
+                    teacherIds.add(id);
+                    teacherNames.add(name);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading teachers: " + e.getMessage());
+            return;
+        }
+
+        if (teacherIds.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No teachers available to assign.");
+            return;
+        }
+
+        String selectedTeacher = (String) JOptionPane.showInputDialog(
+                this,
+                "Select a teacher:",
+                "Assign Subject",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                teacherNames.toArray(new String[0]),
+                teacherNames.get(0)
+        );
+
+        if (selectedTeacher == null) {
+            return;
+        }
+
+        int teacherIndex = teacherNames.indexOf(selectedTeacher);
+        if (teacherIndex < 0) {
+            return;
+        }
+        int teacherId = teacherIds.get(teacherIndex);
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Assign this subject to " + selectedTeacher + "?", "Confirm Assign", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        config cn = new config();
+        String sql = "INSERT INTO tbl_subjects_handled(a_id, s_id) VALUES(?, ?)";
+        cn.addRecord(sql, teacherId, subjectId);
+
+        JOptionPane.showMessageDialog(this, "Subject assigned successfully!");
+    }
 
     private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
         users Users = new users();
@@ -543,6 +602,7 @@ public class subjects extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Add;
+    private javax.swing.JPanel Assign;
     private javax.swing.JPanel Courses;
     private javax.swing.JPanel Delete;
     private javax.swing.JPanel Home;
@@ -563,8 +623,6 @@ public class subjects extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel subjects;
