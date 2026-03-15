@@ -6,11 +6,15 @@
 package Main;
 
 import Config.config;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -43,6 +47,8 @@ public class Register extends javax.swing.JFrame {
      */
     public Register() {
         initComponents();
+        programCombo.setVisible(false);
+        jLabelProgram.setVisible(false);
     }
 
     /**
@@ -77,7 +83,9 @@ public class Register extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         confpass = new javax.swing.JPasswordField();
         jLabel15 = new javax.swing.JLabel();
-        type = new javax.swing.JTextField();
+        typeCombo = new javax.swing.JComboBox<>();
+        jLabelProgram = new javax.swing.JLabel();
+        programCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,17 +154,17 @@ public class Register extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel11.setText("Confirm Password");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 160, 50));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, 160, 50));
 
         pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passActionPerformed(evt);
             }
         });
-        jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, 290, 30));
+        jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 290, 30));
 
         jLabel12.setText("Already have an account?");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 620, 190, 40));
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 660, 190, 40));
 
         loginbtn.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         loginbtn.setForeground(new java.awt.Color(0, 153, 153));
@@ -166,7 +174,7 @@ public class Register extends javax.swing.JFrame {
                 loginbtnMouseClicked(evt);
             }
         });
-        jPanel3.add(loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 70, 40));
+        jPanel3.add(loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 660, 70, 40));
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -183,7 +191,7 @@ public class Register extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,29 +200,39 @@ public class Register extends javax.swing.JFrame {
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 570, 290, 40));
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 620, 290, 40));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel13.setText("Password");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 90, 50));
+        // Move Password label slightly up so it's clearly visible below Program
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 90, 50));
 
         confpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confpassActionPerformed(evt);
             }
         });
-        jPanel3.add(confpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 290, 30));
+        jPanel3.add(confpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 580, 290, 30));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel15.setText("Email");
         jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 50, 30));
 
-        type.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                typeActionPerformed(evt);
+        typeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Student", "Admin", "Teacher" }));
+        typeCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                typeComboItemStateChanged(evt);
             }
         });
-        jPanel3.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 290, 30));
+        jPanel3.add(typeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 290, 30));
+
+        jLabelProgram.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabelProgram.setText("Program");
+        // Move Program down slightly
+        jPanel3.add(jLabelProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 80, 30));
+
+        programCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BSEd", "BSIT", "BSCrim", "BSHM", "BSBA", "BSTM", "BSN" }));
+        jPanel3.add(programCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 430, 290, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 430, 740));
 
@@ -232,7 +250,13 @@ public class Register extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    public void setColor(JPanel p){
+        p.setBackground(new Color(0, 204, 204));
+    }
+    
+    public void resetColor(JPanel p2){
+        p2.setBackground(new Color(0, 153, 153));
+    }
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
@@ -251,39 +275,53 @@ public class Register extends javax.swing.JFrame {
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         config con = new config();
-        
-        
+
         String fname = firstname.getText().trim();
         String lname = lastname.getText().trim();
         String mail = email.getText().trim();
-        String usertype = type.getText().trim();
+        String usertype = (String) typeCombo.getSelectedItem();
         String password = pass.getText().trim();
         String cpassword = confpass.getText().trim();
 
-        // Check if fields are empty
-        if(fname.isEmpty() || lname.isEmpty() || mail.isEmpty() || usertype.isEmpty() 
-            || password.isEmpty() || cpassword.isEmpty()){
-
+        if (fname.isEmpty() || lname.isEmpty() || mail.isEmpty() || usertype == null || usertype.isEmpty()
+            || password.isEmpty() || cpassword.isEmpty()) {
             JOptionPane.showMessageDialog(null, "All fields are required!");
             return;
         }
 
-        // Check if passwords match
-        if(!password.equals(cpassword)){
+        if ("Student".equals(usertype)) {
+            String program = (String) programCombo.getSelectedItem();
+            if (program == null || program.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please select a program for Student.");
+                return;
+            }
+        }
+
+        if (!password.equals(cpassword)) {
             JOptionPane.showMessageDialog(null, "Passwords do not match!");
             return;
         }
 
-        // Check if email is already in use
         if (emailAlreadyInUse(mail)) {
             JOptionPane.showMessageDialog(null, "Email is already in use. Please choose another email.");
             email.requestFocus();
             email.selectAll();
             return;
         }
-    
+
         String sql = "INSERT INTO tbl_accounts (fname, lname, email, type, pass, status) VALUES (?, ?, ?, ?, ?, ?)";
-        con.addRecord(sql, firstname.getText(), lastname.getText(), email.getText(), type.getText(), pass.getText(), "Pending");
+        int aId = con.addRecordReturningId(sql, fname, lname, mail, usertype, password, "Pending");
+        if (aId < 0) {
+            JOptionPane.showMessageDialog(null, "Registration failed. Please try again.");
+            return;
+        }
+
+        if ("Student".equals(usertype)) {
+            String program = (String) programCombo.getSelectedItem();
+            String sqlStudent = "INSERT INTO tbl_students (a_id, program) VALUES (?, ?)";
+            con.addRecord(sqlStudent, aId, program);
+        }
+
         JOptionPane.showMessageDialog(null, "RECORD ADDED!");
     }//GEN-LAST:event_jLabel14MouseClicked
 
@@ -297,9 +335,20 @@ public class Register extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_confpassActionPerformed
 
-    private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_typeActionPerformed
+    private void typeComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_typeComboItemStateChanged
+        if (evt.getStateChange() != java.awt.event.ItemEvent.SELECTED) return;
+        boolean isStudent = "Student".equals(typeCombo.getSelectedItem());
+        programCombo.setVisible(isStudent);
+        jLabelProgram.setVisible(isStudent);
+    }//GEN-LAST:event_typeComboItemStateChanged
+
+    private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
+        setColor(jPanel4);
+    }//GEN-LAST:event_jPanel4MouseEntered
+
+    private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
+        resetColor(jPanel4);
+    }//GEN-LAST:event_jPanel4MouseExited
 
     /**
      * @param args the command line arguments
@@ -360,6 +409,8 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField lastname;
     private javax.swing.JLabel loginbtn;
     private javax.swing.JPasswordField pass;
-    private javax.swing.JTextField type;
+    private javax.swing.JComboBox<String> programCombo;
+    private javax.swing.JLabel jLabelProgram;
+    private javax.swing.JComboBox<String> typeCombo;
     // End of variables declaration//GEN-END:variables
 }

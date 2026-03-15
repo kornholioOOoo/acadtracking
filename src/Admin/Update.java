@@ -57,15 +57,6 @@ public class Update extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        Users = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        Home = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        Profile = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        Courses = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         firstname = new javax.swing.JTextField();
         lastname = new javax.swing.JTextField();
@@ -81,6 +72,8 @@ public class Update extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         confpass = new javax.swing.JPasswordField();
         Pass = new javax.swing.JPasswordField();
+        back = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,144 +112,6 @@ public class Update extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 130));
-
-        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Users.setBackground(new java.awt.Color(0, 153, 153));
-        Users.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Users.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                UsersMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                UsersMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                UsersMouseExited(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Manage users");
-
-        javax.swing.GroupLayout UsersLayout = new javax.swing.GroupLayout(Users);
-        Users.setLayout(UsersLayout);
-        UsersLayout.setHorizontalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        UsersLayout.setVerticalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(UsersLayout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jPanel3.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 250, 80));
-
-        Home.setBackground(new java.awt.Color(0, 153, 153));
-        Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Home.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                HomeMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                HomeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                HomeMouseExited(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
-
-        javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
-        Home.setLayout(HomeLayout);
-        HomeLayout.setHorizontalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-        );
-        HomeLayout.setVerticalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomeLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, 80));
-
-        Profile.setBackground(new java.awt.Color(0, 153, 153));
-        Profile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Profile.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ProfileMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ProfileMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ProfileMouseExited(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
-
-        javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
-        Profile.setLayout(ProfileLayout);
-        ProfileLayout.setHorizontalGroup(
-            ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        ProfileLayout.setVerticalGroup(
-            ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProfileLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, 250, 80));
-
-        Courses.setBackground(new java.awt.Color(0, 153, 153));
-        Courses.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Courses.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CoursesMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                CoursesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                CoursesMouseExited(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Manage Courses");
-
-        javax.swing.GroupLayout CoursesLayout = new javax.swing.GroupLayout(Courses);
-        Courses.setLayout(CoursesLayout);
-        CoursesLayout.setHorizontalGroup(
-            CoursesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        CoursesLayout.setVerticalGroup(
-            CoursesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CoursesLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Courses, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 250, 80));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 990, 160));
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -310,7 +165,7 @@ public class Update extends javax.swing.JFrame {
         addU.add(jLabel11);
         jLabel11.setBounds(50, 20, 167, 46);
 
-        jPanel4.add(addU, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 260, 80));
+        jPanel4.add(addU, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 260, 80));
         jPanel4.add(confpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 240, 40));
 
         Pass.addActionListener(new java.awt.event.ActionListener() {
@@ -320,7 +175,30 @@ public class Update extends javax.swing.JFrame {
         });
         jPanel4.add(Pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 240, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 930, 360));
+        back.setBackground(new java.awt.Color(0, 153, 153));
+        back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backMouseExited(evt);
+            }
+        });
+        back.setLayout(null);
+
+        jLabel13.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("BACK");
+        back.add(jLabel13);
+        jLabel13.setBounds(10, 20, 240, 46);
+
+        jPanel4.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, 260, 80));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 930, 360));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -330,9 +208,7 @@ public class Update extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
         );
 
         pack();
@@ -355,72 +231,23 @@ public class Update extends javax.swing.JFrame {
         config con = new config();
 
         String sql = "UPDATE tbl_accounts SET fname=?,lname=?, email=?, type=?, pass=? WHERE a_id=?";
-        con.addRecord(sql,
-            firstname.getText(),
-            lastname.getText(),
-            Email.getText(),
-            Type.getText(),
-            Pass.getText(),
-            userId
-        );
+        con.addRecord(sql, firstname.getText(), lastname.getText(), Email.getText(), Type.getText(), Pass.getText(), userId);
         JOptionPane.showMessageDialog(null, "RECORD UPDATED!");
     }//GEN-LAST:event_addUMouseClicked
 
-    private void CoursesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseExited
-        resetColor(Courses);
-    }//GEN-LAST:event_CoursesMouseExited
-
-    private void CoursesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseEntered
-        setColor(Courses);
-    }//GEN-LAST:event_CoursesMouseEntered
-
-    private void ProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseExited
-        resetColor(Profile);
-    }//GEN-LAST:event_ProfileMouseExited
-
-    private void ProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseEntered
-        setColor(Profile);
-    }//GEN-LAST:event_ProfileMouseEntered
-
-    private void HomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseExited
-        resetColor(Home);
-    }//GEN-LAST:event_HomeMouseExited
-
-    private void HomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseEntered
-        setColor(Home);
-    }//GEN-LAST:event_HomeMouseEntered
-
-    private void HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseClicked
-        adminDashboardOrig Home = new adminDashboardOrig();
-        Home.setVisible(true);
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        users back = new users();
+        back.setVisible(true);
         dispose();
-    }//GEN-LAST:event_HomeMouseClicked
+    }//GEN-LAST:event_backMouseClicked
 
-    private void UsersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseExited
-        resetColor(Users);
-    }//GEN-LAST:event_UsersMouseExited
+    private void backMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseEntered
+        setColor(back);
+    }//GEN-LAST:event_backMouseEntered
 
-    private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
-        setColor(Users);
-    }//GEN-LAST:event_UsersMouseEntered
-
-    private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
-        users Users = new users();
-        Users.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_UsersMouseClicked
-
-    private void ProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseClicked
-        profile prof = new profile(Session.userId);
-        prof.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_ProfileMouseClicked
-
-    private void CoursesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseClicked
-        subjects Courses = new subjects();
-        Courses.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_CoursesMouseClicked
+    private void backMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseExited
+        resetColor(back);
+    }//GEN-LAST:event_backMouseExited
     public void setColor(JPanel p){
         p.setBackground(new Color(0, 204, 204));
     }
@@ -470,32 +297,25 @@ public class Update extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Courses;
     private javax.swing.JTextField Email;
-    private javax.swing.JPanel Home;
     private javax.swing.JPasswordField Pass;
-    private javax.swing.JPanel Profile;
     private javax.swing.JTextField Type;
-    private javax.swing.JPanel Users;
     private javax.swing.JPanel addU;
+    private javax.swing.JPanel back;
     private javax.swing.JPasswordField confpass;
     private javax.swing.JTextField firstname;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField lastname;
     // End of variables declaration//GEN-END:variables

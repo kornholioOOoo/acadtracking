@@ -56,15 +56,16 @@ public class profile extends javax.swing.JFrame {
 
     // ✅ Optional: Constructor with explicit userId
     public profile(int userId) {
-        if (!Config.Session.isLoggedIn) {
-            JOptionPane.showMessageDialog(null, "You must login first!");
-            new Main.Login().setVisible(true);
-            return;
-        }
         this.userId = userId;
         initComponents();
         initProfilePictureUI();
         applyTheme();
+        if (!Config.Session.isLoggedIn) {
+            JOptionPane.showMessageDialog(this, "You must login first!");
+            new Main.Login().setVisible(true);
+            SwingUtilities.invokeLater(() -> dispose());
+            return;
+        }
         displayData();
     }
 
@@ -215,13 +216,13 @@ public class profile extends javax.swing.JFrame {
         togglePwBtn.setMargin(new java.awt.Insets(2, 8, 2, 8));
         togglePwBtn.addActionListener(e -> togglePasswordVisibility());
 
-        // Add first, then position it based on the Pw label bounds
-        jPanel4.add(togglePwBtn);
-        togglePwBtn.setBounds(Pw.getX() + Pw.getWidth() + 10, Pw.getY(), 70, 28);
+        // jPanel4 uses AbsoluteLayout: must add with AbsoluteConstraints (same row as Pw at 209,340)
+        int x = 209 + 150 + 10;
+        int y = 340;
+        jPanel4.add(togglePwBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(x, y, 70, 28));
         jPanel1.revalidate();
         jPanel1.repaint();
 
-        SwingUtilities.invokeLater(this::positionTogglePwButton);
         updatePasswordDisplay();
     }
 
@@ -268,7 +269,7 @@ public class profile extends javax.swing.JFrame {
 
     private String maskPassword(String s) {
         if (s == null || s.isEmpty()) return "";
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(s.length());
         for (int i = 0; i < s.length(); i++) sb.append('*');
         return sb.toString();
     }
@@ -625,6 +626,12 @@ public class profile extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BackMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BackMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BackMouseExited(evt);
+            }
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -650,6 +657,17 @@ public class profile extends javax.swing.JFrame {
 
         Edit.setBackground(new java.awt.Color(0, 153, 153));
         Edit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EditMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                EditMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                EditMouseExited(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -675,6 +693,12 @@ public class profile extends javax.swing.JFrame {
         Logout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LogoutMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LogoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LogoutMouseExited(evt);
             }
         });
 
@@ -784,6 +808,34 @@ public class profile extends javax.swing.JFrame {
     private void LogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseClicked
         logout();
     }//GEN-LAST:event_LogoutMouseClicked
+
+    private void EditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EditMouseClicked
+
+    private void EditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditMouseEntered
+        setColor(Edit);
+    }//GEN-LAST:event_EditMouseEntered
+
+    private void EditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditMouseExited
+        resetColor(Edit);
+    }//GEN-LAST:event_EditMouseExited
+
+    private void BackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseEntered
+        setColor(Back);
+    }//GEN-LAST:event_BackMouseEntered
+
+    private void BackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseExited
+        resetColor(Back);
+    }//GEN-LAST:event_BackMouseExited
+
+    private void LogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseEntered
+        setColor(Logout);
+    }//GEN-LAST:event_LogoutMouseEntered
+
+    private void LogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseExited
+        resetColor(Logout);
+    }//GEN-LAST:event_LogoutMouseExited
     public void setColor(JPanel p){
         p.setBackground(new Color(0, 204, 204));
     }

@@ -44,7 +44,7 @@ public class users extends javax.swing.JFrame {
     
     void displayUser(){
         config cn = new config();
-        String sql = "SELECT * FROM tbl_accounts";
+        String sql = "SELECT a_id, fname, lname, email, type, status FROM tbl_accounts";
         cn.displayData(sql, usertable);
     }
     
@@ -61,15 +61,6 @@ public class users extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        Users = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        Home = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        Profile = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        Courses = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         usertable = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
@@ -81,6 +72,8 @@ public class users extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         Delete = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        back = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,7 +85,7 @@ public class users extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("USERS");
+        jLabel1.setText("MANAGE USERS");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/small.png"))); // NOI18N
 
@@ -103,9 +96,9 @@ public class users extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(216, 216, 216)
+                .addGap(92, 92, 92)
                 .addComponent(jLabel1)
-                .addContainerGap(410, Short.MAX_VALUE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,144 +113,6 @@ public class users extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 130));
 
-        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Users.setBackground(new java.awt.Color(0, 153, 153));
-        Users.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Users.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                UsersMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                UsersMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                UsersMouseExited(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Manage users");
-
-        javax.swing.GroupLayout UsersLayout = new javax.swing.GroupLayout(Users);
-        Users.setLayout(UsersLayout);
-        UsersLayout.setHorizontalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        UsersLayout.setVerticalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UsersLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 250, 80));
-
-        Home.setBackground(new java.awt.Color(0, 153, 153));
-        Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Home.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                HomeMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                HomeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                HomeMouseExited(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
-
-        javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
-        Home.setLayout(HomeLayout);
-        HomeLayout.setHorizontalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-        );
-        HomeLayout.setVerticalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomeLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, 80));
-
-        Profile.setBackground(new java.awt.Color(0, 153, 153));
-        Profile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Profile.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ProfileMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ProfileMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ProfileMouseExited(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
-
-        javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
-        Profile.setLayout(ProfileLayout);
-        ProfileLayout.setHorizontalGroup(
-            ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        ProfileLayout.setVerticalGroup(
-            ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProfileLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, 250, 80));
-
-        Courses.setBackground(new java.awt.Color(0, 153, 153));
-        Courses.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Courses.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CoursesMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                CoursesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                CoursesMouseExited(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Manage Courses");
-
-        javax.swing.GroupLayout CoursesLayout = new javax.swing.GroupLayout(Courses);
-        Courses.setLayout(CoursesLayout);
-        CoursesLayout.setHorizontalGroup(
-            CoursesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        CoursesLayout.setVerticalGroup(
-            CoursesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CoursesLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Courses, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 250, 80));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 990, 160));
-
         usertable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -268,7 +123,7 @@ public class users extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(usertable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 930, 340));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 930, 340));
 
         jPanel6.setBackground(new java.awt.Color(0, 153, 153));
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -276,16 +131,23 @@ public class users extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel6MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel6MouseExited(evt);
+            }
         });
         jPanel6.setLayout(null);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel13.setText("Search");
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("SEARCH");
         jPanel6.add(jLabel13);
-        jLabel13.setBounds(30, 0, 55, 30);
+        jLabel13.setBounds(5, 0, 90, 30);
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 220, 110, 30));
-        jPanel1.add(SearchText, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 360, 30));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 150, 100, 30));
+        jPanel1.add(SearchText, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 360, 30));
 
         Update.setBackground(new java.awt.Color(0, 153, 153));
         Update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -293,15 +155,22 @@ public class users extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 UpdateMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                UpdateMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                UpdateMouseExited(evt);
+            }
         });
         Update.setLayout(null);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel11.setText("Update");
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("UPDATE");
         Update.add(jLabel11);
-        jLabel11.setBounds(30, 0, 59, 30);
+        jLabel11.setBounds(9, 0, 100, 30);
 
-        jPanel1.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 110, 30));
+        jPanel1.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 110, 30));
 
         Add.setBackground(new java.awt.Color(0, 153, 153));
         Add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -309,15 +178,22 @@ public class users extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AddMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AddMouseExited(evt);
+            }
         });
         Add.setLayout(null);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel14.setText("Add");
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("ADD");
         Add.add(jLabel14);
-        jLabel14.setBounds(40, 0, 32, 30);
+        jLabel14.setBounds(0, 0, 110, 30);
 
-        jPanel1.add(Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 110, 30));
+        jPanel1.add(Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 110, 30));
 
         Delete.setBackground(new java.awt.Color(0, 153, 153));
         Delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -325,15 +201,45 @@ public class users extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DeleteMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                DeleteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                DeleteMouseExited(evt);
+            }
         });
         Delete.setLayout(null);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel12.setText("Delete");
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("DELETE");
         Delete.add(jLabel12);
-        jLabel12.setBounds(30, 0, 54, 30);
+        jLabel12.setBounds(4, 0, 100, 30);
 
-        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 110, 30));
+        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 110, 30));
+
+        back.setBackground(new java.awt.Color(0, 153, 153));
+        back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backMouseExited(evt);
+            }
+        });
+        back.setLayout(null);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("BACK");
+        back.add(jLabel16);
+        jLabel16.setBounds(0, 0, 90, 30);
+
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 150, 90, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -344,7 +250,7 @@ public class users extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -360,45 +266,7 @@ public class users extends javax.swing.JFrame {
         p2.setBackground(new Color(0, 153, 153));
     }
     
-    private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
-        setColor(Users);
-    }//GEN-LAST:event_UsersMouseEntered
-
-    private void UsersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseExited
-        resetColor(Users);
-    }//GEN-LAST:event_UsersMouseExited
-
-    private void HomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseEntered
-        setColor(Home);
-    }//GEN-LAST:event_HomeMouseEntered
-
-    private void HomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseExited
-        resetColor(Home);
-    }//GEN-LAST:event_HomeMouseExited
-
     
-    private void ProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseEntered
-        setColor(Profile);
-    }//GEN-LAST:event_ProfileMouseEntered
-
-    private void ProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseExited
-        resetColor(Profile);
-    }//GEN-LAST:event_ProfileMouseExited
-
-    private void CoursesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseEntered
-        setColor(Courses);
-    }//GEN-LAST:event_CoursesMouseEntered
-
-    private void CoursesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseExited
-        resetColor(Courses);
-    }//GEN-LAST:event_CoursesMouseExited
-
-    private void HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseClicked
-        adminDashboardOrig Home = new adminDashboardOrig();
-        Home.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_HomeMouseClicked
-
     private void AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseClicked
         add Add = new add();
         Add.setVisible(true);
@@ -428,62 +296,103 @@ public class users extends javax.swing.JFrame {
     }//GEN-LAST:event_DeleteMouseClicked
 
     private void UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseClicked
-int row = usertable.getSelectedRow();
-
-    if (row == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a user to update.");
-        return;
-    }
-
-    int a_id = Integer.parseInt(usertable.getValueAt(row, 0).toString());
-    String fname = usertable.getValueAt(row, 1).toString();
-    String lname = usertable.getValueAt(row, 2).toString();
-    String email = usertable.getValueAt(row, 3).toString();
-    String pass = usertable.getValueAt(row, 4).toString();
-    String type = usertable.getValueAt(row, 5).toString();
-
-    Update up = new Update (a_id, fname, lname, email, pass, type);
-    up.setVisible(true);
-    dispose();
+        int row = usertable.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a user to update.");
+            return;
+        }
+        int a_id = Integer.parseInt(usertable.getValueAt(row, 0).toString());
+        String fname = usertable.getValueAt(row, 1).toString();
+        String lname = usertable.getValueAt(row, 2).toString();
+        String email = usertable.getValueAt(row, 3).toString();
+        String type = usertable.getValueAt(row, 4).toString();
+        String pass = fetchPasswordForUser(a_id);
+        Update up = new Update(a_id, fname, lname, email, type, pass);
+        up.setVisible(true);
+        dispose();
     }//GEN-LAST:event_UpdateMouseClicked
 
+    private String fetchPasswordForUser(int a_id) {
+        try (java.sql.Connection conn = Config.config.connectDB();
+             java.sql.PreparedStatement ps = conn.prepareStatement("SELECT pass FROM tbl_accounts WHERE a_id = ?")) {
+            ps.setInt(1, a_id);
+            try (java.sql.ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? rs.getString("pass") : "";
+            }
+        } catch (java.sql.SQLException e) {
+            return "";
+        }
+    }
+
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-    config conf = new config();
-
-    String keyword = SearchText.getText().trim();
-
-    if (keyword.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please enter a name or email to search.");
-        return;
-    }
-
-    String sql = "SELECT a_id, fname, email, pass, type, status " +
-                 "FROM tbl_accounts WHERE fname LIKE '%" + keyword + "%' " +
-                 "OR email LIKE '%" + keyword + "%'";
-
-    conf.displayData(sql, usertable);
-
-    if (usertable.getRowCount() == 0) {
-        JOptionPane.showMessageDialog(this, "Doesn't Exist");
-        displayUser();
-    }
+        config conf = new config();
+        String keyword = SearchText.getText().trim();
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a name or email to search.");
+            return;
+        }
+        String like = "%" + keyword + "%";
+        String sql = "SELECT a_id, fname, lname, email, type, status FROM tbl_accounts WHERE fname LIKE ? OR lname LIKE ? OR email LIKE ?";
+        try (java.sql.Connection conn = Config.config.connectDB();
+             java.sql.PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, like);
+            ps.setString(2, like);
+            ps.setString(3, like);
+            java.sql.ResultSet rs = ps.executeQuery();
+            usertable.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+        } catch (java.sql.SQLException e) {
+            displayUser();
+        }
+        if (usertable.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No matching record.");
+        }
     }//GEN-LAST:event_jPanel6MouseClicked
 
-    private void CoursesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseClicked
-        subjects Courses = new subjects();
-        Courses.setVisible(true);
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        adminDashboardOrig back = new adminDashboardOrig();
+        back.setVisible(true);
         dispose();
-    }//GEN-LAST:event_CoursesMouseClicked
+    }//GEN-LAST:event_backMouseClicked
 
-    private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
-        
-    }//GEN-LAST:event_UsersMouseClicked
+    private void AddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseEntered
+        setColor(Add);
+    }//GEN-LAST:event_AddMouseEntered
 
-    private void ProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseClicked
-        profile prof = new profile(Session.userId);
-        prof.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_ProfileMouseClicked
+    private void AddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseExited
+        resetColor(Add);
+    }//GEN-LAST:event_AddMouseExited
+
+    private void UpdateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseEntered
+        setColor(Update);
+    }//GEN-LAST:event_UpdateMouseEntered
+
+    private void UpdateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseExited
+        resetColor(Update);
+    }//GEN-LAST:event_UpdateMouseExited
+
+    private void DeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseEntered
+        setColor(Delete);
+    }//GEN-LAST:event_DeleteMouseEntered
+
+    private void DeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseExited
+        resetColor(Delete);
+    }//GEN-LAST:event_DeleteMouseExited
+
+    private void jPanel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseEntered
+        setColor(jPanel6);
+    }//GEN-LAST:event_jPanel6MouseEntered
+
+    private void jPanel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseExited
+        resetColor(jPanel6);
+    }//GEN-LAST:event_jPanel6MouseExited
+
+    private void backMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseEntered
+        setColor(back);
+    }//GEN-LAST:event_backMouseEntered
+
+    private void backMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseExited
+        resetColor(back);
+    }//GEN-LAST:event_backMouseExited
 
     /**
      * @param args the command line arguments
@@ -522,26 +431,19 @@ int row = usertable.getSelectedRow();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Add;
-    private javax.swing.JPanel Courses;
     private javax.swing.JPanel Delete;
-    private javax.swing.JPanel Home;
-    private javax.swing.JPanel Profile;
     private javax.swing.JTextField SearchText;
     private javax.swing.JPanel Update;
-    private javax.swing.JPanel Users;
+    private javax.swing.JPanel back;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable usertable;

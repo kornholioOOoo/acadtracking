@@ -182,34 +182,24 @@ public class Login extends javax.swing.JFrame {
             return;
         }
 
-        String sql = "SELECT a_id, status, type FROM tbl_accounts WHERE email = ? AND pass = ?";
-
-
+        String sql = "SELECT a_id, status, type, pass FROM tbl_accounts WHERE email = ? AND pass = ?";
         String status = null;
         String userType = null;
 
-        try (
-            java.sql.Connection conn = Config.config.connectDB();
-            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-        ) {
-
+        try (java.sql.Connection conn = Config.config.connectDB();
+             java.sql.PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.setString(1, email);
             pst.setString(2, password);
-
             java.sql.ResultSet rs = pst.executeQuery();
-
             if (!rs.next()) {
                 JOptionPane.showMessageDialog(null, "Invalid email or password!");
                 return;
             }
-
-            int userId = rs.getInt("a_id");     // get user ID
+            int userId = rs.getInt("a_id");
             status = rs.getString("status");
             userType = rs.getString("type");
-
-            Config.Session.userId = userId;     // ⭐ STEP 2 IMPLEMENTED
+            Config.Session.userId = userId;
             Config.Session.isLoggedIn = true;
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Login Error: " + e.getMessage());
             return;

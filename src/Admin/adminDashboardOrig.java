@@ -56,6 +56,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         Report = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,7 +113,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Manage Courses");
+        jLabel7.setText("MANAGE COURSES");
 
         javax.swing.GroupLayout CoursesLayout = new javax.swing.GroupLayout(Courses);
         Courses.setLayout(CoursesLayout);
@@ -125,7 +126,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Courses, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 250, 60));
+        jPanel1.add(Courses, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 250, 60));
 
         Users.setBackground(new java.awt.Color(0, 153, 153));
         Users.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -143,7 +144,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Manage users");
+        jLabel6.setText("MANAGE USERS");
 
         javax.swing.GroupLayout UsersLayout = new javax.swing.GroupLayout(Users);
         Users.setLayout(UsersLayout);
@@ -156,7 +157,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 250, 60));
+        jPanel1.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 250, 60));
 
         Profile.setBackground(new java.awt.Color(0, 153, 153));
         Profile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -174,7 +175,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
+        jLabel3.setText("PROFILE");
 
         javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
         Profile.setLayout(ProfileLayout);
@@ -187,7 +188,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 250, 60));
+        jPanel1.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 250, 60));
 
         Home.setBackground(new java.awt.Color(0, 153, 153));
         Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -202,7 +203,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
+        jLabel5.setText("HOME");
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
@@ -212,10 +213,10 @@ public class adminDashboardOrig extends javax.swing.JFrame {
         );
         HomeLayout.setVerticalGroup(
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 250, 70));
+        jPanel1.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 250, 60));
 
         Enroll.setBackground(new java.awt.Color(0, 153, 153));
         Enroll.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -233,7 +234,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Enroll Students");
+        jLabel8.setText("ENROLL STUDENTS");
 
         javax.swing.GroupLayout EnrollLayout = new javax.swing.GroupLayout(Enroll);
         Enroll.setLayout(EnrollLayout);
@@ -246,7 +247,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Enroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 250, 60));
+        jPanel1.add(Enroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 250, 60));
 
         Approve.setBackground(new java.awt.Color(0, 153, 153));
         Approve.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -264,7 +265,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Approve Accounts");
+        jLabel9.setText("APPROVE ACCOUNTS");
 
         javax.swing.GroupLayout ApproveLayout = new javax.swing.GroupLayout(Approve);
         Approve.setLayout(ApproveLayout);
@@ -277,7 +278,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Approve, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 250, 60));
+        jPanel1.add(Approve, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 250, 60));
 
         Report.setBackground(new java.awt.Color(0, 153, 153));
         Report.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -295,20 +296,28 @@ public class adminDashboardOrig extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Generate Report Card");
+        jLabel4.setText("GENERATE");
+
+        jLabel10.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("REPORT CARD");
 
         javax.swing.GroupLayout ReportLayout = new javax.swing.GroupLayout(Report);
         Report.setLayout(ReportLayout);
         ReportLayout.setHorizontalGroup(
             ReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
         ReportLayout.setVerticalGroup(
             ReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+            .addGroup(ReportLayout.createSequentialGroup()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10))
         );
 
-        jPanel1.add(Report, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, -1, -1));
+        jPanel1.add(Report, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 250, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -318,7 +327,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -467,6 +476,7 @@ public class adminDashboardOrig extends javax.swing.JFrame {
     private javax.swing.JPanel Report;
     private javax.swing.JPanel Users;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

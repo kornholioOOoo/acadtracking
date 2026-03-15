@@ -61,6 +61,9 @@ public class Approve extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         Disableacc = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        Report = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,20 +112,20 @@ public class Approve extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Manage Courses");
+        jLabel7.setText("MANAGE COURSES");
 
         javax.swing.GroupLayout CoursesLayout = new javax.swing.GroupLayout(Courses);
         Courses.setLayout(CoursesLayout);
         CoursesLayout.setHorizontalGroup(
             CoursesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
         CoursesLayout.setVerticalGroup(
             CoursesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Courses, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, -1, 70));
+        jPanel1.add(Courses, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 60));
 
         Users.setBackground(new java.awt.Color(0, 153, 153));
         Users.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -140,20 +143,20 @@ public class Approve extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Manage users");
+        jLabel6.setText("MANAGE USERS");
 
         javax.swing.GroupLayout UsersLayout = new javax.swing.GroupLayout(Users);
         Users.setLayout(UsersLayout);
         UsersLayout.setHorizontalGroup(
             UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
         UsersLayout.setVerticalGroup(
             UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 250, 70));
+        jPanel1.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 250, 60));
 
         Profile.setBackground(new java.awt.Color(0, 153, 153));
         Profile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -171,7 +174,7 @@ public class Approve extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
+        jLabel3.setText("PROFILE");
 
         javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
         Profile.setLayout(ProfileLayout);
@@ -181,14 +184,17 @@ public class Approve extends javax.swing.JFrame {
         );
         ProfileLayout.setVerticalGroup(
             ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 250, 70));
+        jPanel1.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 250, 60));
 
         Home.setBackground(new java.awt.Color(0, 153, 153));
         Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HomeMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 HomeMouseEntered(evt);
             }
@@ -199,7 +205,7 @@ public class Approve extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
+        jLabel5.setText("HOME");
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
@@ -209,10 +215,10 @@ public class Approve extends javax.swing.JFrame {
         );
         HomeLayout.setVerticalGroup(
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 250, 80));
+        jPanel1.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 250, 60));
 
         Enroll.setBackground(new java.awt.Color(0, 153, 153));
         Enroll.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -230,7 +236,7 @@ public class Approve extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Enroll Students");
+        jLabel8.setText("ENROLL STUDENTS");
 
         javax.swing.GroupLayout EnrollLayout = new javax.swing.GroupLayout(Enroll);
         Enroll.setLayout(EnrollLayout);
@@ -240,10 +246,10 @@ public class Approve extends javax.swing.JFrame {
         );
         EnrollLayout.setVerticalGroup(
             EnrollLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Enroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 250, 70));
+        jPanel1.add(Enroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 250, 60));
 
         Approve.setBackground(new java.awt.Color(0, 153, 153));
         Approve.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -261,20 +267,20 @@ public class Approve extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Approve Accounts");
+        jLabel9.setText("APPROVE ACCOUNTS");
 
         javax.swing.GroupLayout ApproveLayout = new javax.swing.GroupLayout(Approve);
         Approve.setLayout(ApproveLayout);
         ApproveLayout.setHorizontalGroup(
             ApproveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
         ApproveLayout.setVerticalGroup(
             ApproveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Approve, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 250, -1));
+        jPanel1.add(Approve, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 250, 60));
 
         users.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -317,10 +323,10 @@ public class Approve extends javax.swing.JFrame {
         );
         ApproveaccLayout.setVerticalGroup(
             ApproveaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Approveacc, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 480, 380, 70));
+        jPanel1.add(Approveacc, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 480, 380, 60));
 
         Disableacc.setBackground(new java.awt.Color(0, 153, 153));
         Disableacc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -348,10 +354,49 @@ public class Approve extends javax.swing.JFrame {
         );
         DisableaccLayout.setVerticalGroup(
             DisableaccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Disableacc, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 480, 380, 70));
+        jPanel1.add(Disableacc, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 480, 380, 60));
+
+        Report.setBackground(new java.awt.Color(0, 153, 153));
+        Report.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Report.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReportMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ReportMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ReportMouseExited(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("GENERATE");
+
+        jLabel12.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("REPORT CARD");
+
+        javax.swing.GroupLayout ReportLayout = new javax.swing.GroupLayout(Report);
+        Report.setLayout(ReportLayout);
+        ReportLayout.setHorizontalGroup(
+            ReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+        );
+        ReportLayout.setVerticalGroup(
+            ReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReportLayout.createSequentialGroup()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel12))
+        );
+
+        jPanel1.add(Report, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 250, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -365,6 +410,7 @@ public class Approve extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public void setColor(JPanel p){
         p.setBackground(new Color(0, 204, 204));
@@ -424,7 +470,9 @@ public class Approve extends javax.swing.JFrame {
     }//GEN-LAST:event_HomeMouseExited
 
     private void EnrollMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnrollMouseClicked
-        // TODO add your handling code here:
+        Enroll Enroll = new Enroll();
+        Enroll.setVisible(true);
+        dispose();
     }//GEN-LAST:event_EnrollMouseClicked
 
     private void EnrollMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnrollMouseEntered
@@ -519,6 +567,26 @@ public class Approve extends javax.swing.JFrame {
         resetColor(Disableacc);
     }//GEN-LAST:event_DisableaccMouseExited
 
+    private void ReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportMouseClicked
+        Report Report = new Report();
+        Report.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ReportMouseClicked
+
+    private void ReportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportMouseEntered
+        setColor(Report);
+    }//GEN-LAST:event_ReportMouseEntered
+
+    private void ReportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportMouseExited
+        resetColor(Report);
+    }//GEN-LAST:event_ReportMouseExited
+
+    private void HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseClicked
+        adminDashboardOrig Home = new adminDashboardOrig();
+        Home.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_HomeMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -562,9 +630,12 @@ public class Approve extends javax.swing.JFrame {
     private javax.swing.JPanel Enroll;
     private javax.swing.JPanel Home;
     private javax.swing.JPanel Profile;
+    private javax.swing.JPanel Report;
     private javax.swing.JPanel Users;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

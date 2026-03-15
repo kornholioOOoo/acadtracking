@@ -21,16 +21,33 @@ public class subjectsHandled extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public subjectsHandled() {
+        if (!Config.Session.isLoggedIn) {
+            JOptionPane.showMessageDialog(null, "You must login first!");
+            new Main.Login().setVisible(true);
+            return;
+        }
         initComponents();
         displayHandledSubjects();
     }
 
     private void displayHandledSubjects() {
-        config cn = new config();
-        String sql = "SELECT sh.id, s.s_code, s.s_name, s.units, s.yearlvl, s.sem " +
-                     "FROM tbl_subjects_handled sh, tbl_subjects s " +
-                     "WHERE sh.s_id = s.s_id AND sh.a_id = ?";
-        cn.displayData(sql, subjectstable, Session.userId);
+        String sql = "SELECT sh.id, s.s_code, s.s_name, s.units, s.year_level, s.sem " +
+                     "FROM tbl_subjects_handled sh " +
+                     "INNER JOIN tbl_subjects s ON sh.s_id = s.s_id " +
+                     "WHERE sh.a_id = ?";
+        try {
+            java.sql.Connection conn = Config.config.connectDB();
+            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, Session.userId);
+            java.sql.ResultSet rs = ps.executeQuery();
+            subjectstable.setModel(net.proteanit.sql.DbUtils.resultSetToTableModel(rs));
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (java.sql.SQLException e) {
+            System.out.println("Error loading subjects handled: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -47,7 +64,7 @@ public class subjectsHandled extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        Users = new javax.swing.JPanel();
+        Subjects = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         Home = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -100,38 +117,38 @@ public class subjectsHandled extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Users.setBackground(new java.awt.Color(0, 153, 153));
-        Users.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Users.addMouseListener(new java.awt.event.MouseAdapter() {
+        Subjects.setBackground(new java.awt.Color(0, 153, 153));
+        Subjects.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Subjects.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                UsersMouseClicked(evt);
+                SubjectsMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                UsersMouseEntered(evt);
+                SubjectsMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                UsersMouseExited(evt);
+                SubjectsMouseExited(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Subjects Handled");
+        jLabel6.setText("SUBJECTS HANDLED");
 
-        javax.swing.GroupLayout UsersLayout = new javax.swing.GroupLayout(Users);
-        Users.setLayout(UsersLayout);
-        UsersLayout.setHorizontalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout SubjectsLayout = new javax.swing.GroupLayout(Subjects);
+        Subjects.setLayout(SubjectsLayout);
+        SubjectsLayout.setHorizontalGroup(
+            SubjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
-        UsersLayout.setVerticalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UsersLayout.createSequentialGroup()
+        SubjectsLayout.setVerticalGroup(
+            SubjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SubjectsLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 250, 80));
+        jPanel3.add(Subjects, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 250, 80));
 
         Home.setBackground(new java.awt.Color(0, 153, 153));
         Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -149,7 +166,7 @@ public class subjectsHandled extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
+        jLabel5.setText("HOME");
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
@@ -182,7 +199,7 @@ public class subjectsHandled extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
+        jLabel3.setText("PROFILE");
 
         javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
         Profile.setLayout(ProfileLayout);
@@ -202,6 +219,9 @@ public class subjectsHandled extends javax.swing.JFrame {
         Courses.setBackground(new java.awt.Color(0, 153, 153));
         Courses.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Courses.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CoursesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 CoursesMouseEntered(evt);
             }
@@ -212,7 +232,7 @@ public class subjectsHandled extends javax.swing.JFrame {
 
         subjects.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         subjects.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        subjects.setText("Grades");
+        subjects.setText("GRADES");
 
         javax.swing.GroupLayout CoursesLayout = new javax.swing.GroupLayout(Courses);
         Courses.setLayout(CoursesLayout);
@@ -257,6 +277,7 @@ public class subjectsHandled extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public void setColor(JPanel p){
         p.setBackground(new Color(0, 204, 204));
@@ -265,22 +286,20 @@ public class subjectsHandled extends javax.swing.JFrame {
     public void resetColor(JPanel p2){
         p2.setBackground(new Color(0, 153, 153));
     }
-    private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
-        users Users = new users();
-        Users.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_UsersMouseClicked
+    private void SubjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubjectsMouseClicked
+       
+    }//GEN-LAST:event_SubjectsMouseClicked
 
-    private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
-        setColor(Users);
-    }//GEN-LAST:event_UsersMouseEntered
+    private void SubjectsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubjectsMouseEntered
+        setColor(Subjects);
+    }//GEN-LAST:event_SubjectsMouseEntered
 
-    private void UsersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseExited
-        resetColor(Users);
-    }//GEN-LAST:event_UsersMouseExited
+    private void SubjectsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubjectsMouseExited
+        resetColor(Subjects);
+    }//GEN-LAST:event_SubjectsMouseExited
 
     private void HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseClicked
-        adminDashboardOrig Home = new adminDashboardOrig();
+        adminDashboard Home = new adminDashboard();
         Home.setVisible(true);
         dispose();
     }//GEN-LAST:event_HomeMouseClicked
@@ -314,6 +333,12 @@ public class subjectsHandled extends javax.swing.JFrame {
     private void CoursesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseExited
         resetColor(Courses);
     }//GEN-LAST:event_CoursesMouseExited
+
+    private void CoursesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseClicked
+        Allgrades Courses = new Allgrades();
+        Courses.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_CoursesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -355,7 +380,7 @@ public class subjectsHandled extends javax.swing.JFrame {
     private javax.swing.JPanel Courses;
     private javax.swing.JPanel Home;
     private javax.swing.JPanel Profile;
-    private javax.swing.JPanel Users;
+    private javax.swing.JPanel Subjects;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

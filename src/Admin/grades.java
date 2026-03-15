@@ -5,6 +5,7 @@
  */
 package Admin;
 
+import Config.Session;
 import Config.config;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -30,14 +31,14 @@ public class grades extends javax.swing.JFrame {
     }
 
     void displayGrades() {
-    int studentId = Config.Session.userId; // logged-in student
-
-    String sql = "SELECT g_id, a_id, s_id, prelim, midterm, prefinal, finals, remarks "
-               + "FROM tbl_grades WHERE a_id = ?"; // or s_id depending on your DB
-
-    config cn = new config();
-    cn.displayData(sql, gradestable, studentId); // pass studentId as parameter
-}
+        int studentId = Config.Session.userId; // logged-in student
+        String sql = "SELECT s.s_code, s.s_name, g.prelim, g.midterm, g.prefinal, g.finals, "
+            + "CASE WHEN (g.prelim + g.midterm + g.prefinal + g.finals) / 4.0 BETWEEN 1.0 AND 3.0 THEN 'Passed' "
+            + "WHEN (g.prelim + g.midterm + g.prefinal + g.finals) / 4.0 BETWEEN 3.1 AND 5.0 THEN 'Failed' ELSE '' END AS remarks "
+            + "FROM tbl_grades g JOIN tbl_subjects s ON g.s_id = s.s_id WHERE g.a_id = ?";
+        config cn = new config();
+        cn.displayData(sql, gradestable, studentId);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,16 +54,16 @@ public class grades extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        Users = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         Home = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         Profile = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        Reports = new javax.swing.JPanel();
-        Grades = new javax.swing.JLabel();
+        Grades = new javax.swing.JPanel();
+        lele = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         gradestable = new javax.swing.JTable();
+        Request = new javax.swing.JPanel();
+        lele1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,36 +107,6 @@ public class grades extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Users.setBackground(new java.awt.Color(0, 153, 153));
-        Users.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Users.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                UsersMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                UsersMouseExited(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Users");
-
-        javax.swing.GroupLayout UsersLayout = new javax.swing.GroupLayout(Users);
-        Users.setLayout(UsersLayout);
-        UsersLayout.setHorizontalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        UsersLayout.setVerticalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UsersLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 250, -1));
-
         Home.setBackground(new java.awt.Color(0, 153, 153));
         Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Home.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -152,13 +123,13 @@ public class grades extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
+        jLabel5.setText("HOME");
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
         HomeLayout.setHorizontalGroup(
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
         );
         HomeLayout.setVerticalGroup(
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,11 +138,14 @@ public class grades extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, -1));
+        jPanel3.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 340, 80));
 
         Profile.setBackground(new java.awt.Color(0, 153, 153));
         Profile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Profile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProfileMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ProfileMouseEntered(evt);
             }
@@ -182,13 +156,13 @@ public class grades extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
+        jLabel3.setText("PROFILE");
 
         javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
         Profile.setLayout(ProfileLayout);
         ProfileLayout.setHorizontalGroup(
             ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
         );
         ProfileLayout.setVerticalGroup(
             ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,37 +171,37 @@ public class grades extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, 250, -1));
+        jPanel3.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 320, 80));
 
-        Reports.setBackground(new java.awt.Color(0, 153, 153));
-        Reports.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Reports.addMouseListener(new java.awt.event.MouseAdapter() {
+        Grades.setBackground(new java.awt.Color(0, 153, 153));
+        Grades.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Grades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ReportsMouseEntered(evt);
+                GradesMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                ReportsMouseExited(evt);
+                GradesMouseExited(evt);
             }
         });
 
-        Grades.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        Grades.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Grades.setText("Grades");
+        lele.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lele.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lele.setText("GRADES");
 
-        javax.swing.GroupLayout ReportsLayout = new javax.swing.GroupLayout(Reports);
-        Reports.setLayout(ReportsLayout);
-        ReportsLayout.setHorizontalGroup(
-            ReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Grades, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+        javax.swing.GroupLayout GradesLayout = new javax.swing.GroupLayout(Grades);
+        Grades.setLayout(GradesLayout);
+        GradesLayout.setHorizontalGroup(
+            GradesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lele, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
-        ReportsLayout.setVerticalGroup(
-            ReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReportsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Grades, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+        GradesLayout.setVerticalGroup(
+            GradesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GradesLayout.createSequentialGroup()
+                .addComponent(lele, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel3.add(Reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 250, -1));
+        jPanel3.add(Grades, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 330, 80));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 990, 160));
 
@@ -241,7 +215,38 @@ public class grades extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(gradestable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 930, 370));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 930, 290));
+
+        Request.setBackground(new java.awt.Color(0, 153, 153));
+        Request.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Request.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RequestMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RequestMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                RequestMouseExited(evt);
+            }
+        });
+
+        lele1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lele1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lele1.setText("REQUEST REPORT CARD GENERATION");
+
+        javax.swing.GroupLayout RequestLayout = new javax.swing.GroupLayout(Request);
+        Request.setLayout(RequestLayout);
+        RequestLayout.setHorizontalGroup(
+            RequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lele1, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE)
+        );
+        RequestLayout.setVerticalGroup(
+            RequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lele1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(Request, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 930, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,6 +262,7 @@ public class grades extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
     public void setColor(JPanel p){
@@ -267,16 +273,8 @@ public class grades extends javax.swing.JFrame {
         p2.setBackground(new Color(0, 153, 153));
     }
     
-    private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
-        setColor(Users);
-    }//GEN-LAST:event_UsersMouseEntered
-
-    private void UsersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseExited
-        resetColor(Users);
-    }//GEN-LAST:event_UsersMouseExited
-
     private void HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseClicked
-        adminDashboard Home = new adminDashboard();
+        studentDashboard Home = new studentDashboard();
         Home.setVisible(true);
         dispose();
     }//GEN-LAST:event_HomeMouseClicked
@@ -297,13 +295,52 @@ public class grades extends javax.swing.JFrame {
         resetColor(Profile);
     }//GEN-LAST:event_ProfileMouseExited
 
-    private void ReportsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportsMouseEntered
-        setColor(Reports);
-    }//GEN-LAST:event_ReportsMouseEntered
+    private void GradesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GradesMouseEntered
+        setColor(Grades);
+    }//GEN-LAST:event_GradesMouseEntered
 
-    private void ReportsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportsMouseExited
-        resetColor(Reports);
-    }//GEN-LAST:event_ReportsMouseExited
+    private void GradesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GradesMouseExited
+        resetColor(Grades);
+    }//GEN-LAST:event_GradesMouseExited
+
+    private void RequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RequestMouseClicked
+        // Ensure the report-requests table exists, then insert a new request
+        try (java.sql.Connection conn = Config.config.connectDB();
+             java.sql.Statement st = conn.createStatement()) {
+
+            String createSql =
+                "CREATE TABLE IF NOT EXISTS tbl_report_requests (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "a_id INTEGER NOT NULL REFERENCES tbl_accounts(a_id)," +
+                "status TEXT NOT NULL DEFAULT 'Pending'," +
+                "requested_at TEXT)";
+            st.executeUpdate(createSql);
+
+            String insertSql = "INSERT INTO tbl_report_requests (a_id, status, requested_at) " +
+                               "VALUES (?, 'Pending', datetime('now'))";
+            try (java.sql.PreparedStatement ps = conn.prepareStatement(insertSql)) {
+                ps.setInt(1, Config.Session.userId);
+                ps.executeUpdate();
+            }
+            JOptionPane.showMessageDialog(this, "Request for report card generation has been sent to the admin.");
+        } catch (java.sql.SQLException e) {
+            JOptionPane.showMessageDialog(this, "Failed to send request: " + e.getMessage());
+        }
+    }//GEN-LAST:event_RequestMouseClicked
+
+    private void RequestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RequestMouseEntered
+        setColor(Request);
+    }//GEN-LAST:event_RequestMouseEntered
+
+    private void RequestMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RequestMouseExited
+        resetColor(Request);
+    }//GEN-LAST:event_RequestMouseExited
+
+    private void ProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseClicked
+        profile prof = new profile(Session.userId);
+        prof.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ProfileMouseClicked
 
     /**
      * @param args the command line arguments
@@ -341,20 +378,20 @@ public class grades extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Grades;
+    private javax.swing.JPanel Grades;
     private javax.swing.JPanel Home;
     private javax.swing.JPanel Profile;
-    private javax.swing.JPanel Reports;
-    private javax.swing.JPanel Users;
+    private javax.swing.JPanel Request;
     private javax.swing.JTable gradestable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lele;
+    private javax.swing.JLabel lele1;
     // End of variables declaration//GEN-END:variables
 }

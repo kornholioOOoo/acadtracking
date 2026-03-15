@@ -45,8 +45,6 @@ public class studentDashboard extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         Home = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        Settings = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         Grades = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -103,13 +101,13 @@ public class studentDashboard extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Profile");
+        jLabel6.setText("PROFILE");
 
         javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
         Profile.setLayout(ProfileLayout);
         ProfileLayout.setHorizontalGroup(
             ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
         ProfileLayout.setVerticalGroup(
             ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +116,7 @@ public class studentDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 250, -1));
+        jPanel3.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 80, 330, 80));
 
         Home.setBackground(new java.awt.Color(0, 153, 153));
         Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -133,13 +131,13 @@ public class studentDashboard extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
+        jLabel5.setText("HOME");
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
         HomeLayout.setHorizontalGroup(
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
         );
         HomeLayout.setVerticalGroup(
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,37 +146,7 @@ public class studentDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, -1));
-
-        Settings.setBackground(new java.awt.Color(0, 153, 153));
-        Settings.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Settings.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                SettingsMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                SettingsMouseExited(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Settings");
-
-        javax.swing.GroupLayout SettingsLayout = new javax.swing.GroupLayout(Settings);
-        Settings.setLayout(SettingsLayout);
-        SettingsLayout.setHorizontalGroup(
-            SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        SettingsLayout.setVerticalGroup(
-            SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SettingsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, 250, -1));
+        jPanel3.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 320, 80));
 
         Grades.setBackground(new java.awt.Color(0, 153, 153));
         Grades.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -196,22 +164,22 @@ public class studentDashboard extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Grades");
+        jLabel7.setText("GRADES");
 
         javax.swing.GroupLayout GradesLayout = new javax.swing.GroupLayout(Grades);
         Grades.setLayout(GradesLayout);
         GradesLayout.setHorizontalGroup(
             GradesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
         );
         GradesLayout.setVerticalGroup(
             GradesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GradesLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(GradesLayout.createSequentialGroup()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel3.add(Grades, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 250, -1));
+        jPanel3.add(Grades, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, 340, 80));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 990, 160));
 
@@ -235,6 +203,7 @@ public class studentDashboard extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public void setColor(JPanel p){
         p.setBackground(new Color(0, 204, 204));
@@ -265,20 +234,12 @@ public class studentDashboard extends javax.swing.JFrame {
         resetColor(Home);
     }//GEN-LAST:event_HomeMouseExited
 
-    private void SettingsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SettingsMouseEntered
-        setColor(Settings);
-    }//GEN-LAST:event_SettingsMouseEntered
-
-    private void SettingsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SettingsMouseExited
-        resetColor(Settings);
-    }//GEN-LAST:event_SettingsMouseExited
-
     private void GradesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GradesMouseEntered
         setColor(Grades);
     }//GEN-LAST:event_GradesMouseEntered
 
     private void GradesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GradesMouseExited
-        resetColor(Profile);
+        resetColor(Grades);
     }//GEN-LAST:event_GradesMouseExited
 
     private void GradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GradesMouseClicked
@@ -329,11 +290,9 @@ public class studentDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Grades;
     private javax.swing.JPanel Home;
     private javax.swing.JPanel Profile;
-    private javax.swing.JPanel Settings;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

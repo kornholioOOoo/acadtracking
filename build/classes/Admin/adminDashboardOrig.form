@@ -28,7 +28,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -139,7 +139,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="200" width="250" height="60"/>
+              <AbsoluteConstraints x="0" y="190" width="250" height="60"/>
             </Constraint>
           </Constraints>
 
@@ -162,7 +162,7 @@
                   <Font name="Arial Black" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Manage Courses"/>
+                <Property name="text" type="java.lang.String" value="MANAGE COURSES"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -185,7 +185,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="260" width="250" height="60"/>
+              <AbsoluteConstraints x="0" y="250" width="250" height="60"/>
             </Constraint>
           </Constraints>
 
@@ -208,7 +208,7 @@
                   <Font name="Arial Black" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Manage users"/>
+                <Property name="text" type="java.lang.String" value="MANAGE USERS"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -231,7 +231,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="500" width="250" height="60"/>
+              <AbsoluteConstraints x="0" y="490" width="250" height="60"/>
             </Constraint>
           </Constraints>
 
@@ -254,7 +254,7 @@
                   <Font name="Arial Black" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Profile"/>
+                <Property name="text" type="java.lang.String" value="PROFILE"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -276,7 +276,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="130" width="250" height="70"/>
+              <AbsoluteConstraints x="0" y="130" width="250" height="60"/>
             </Constraint>
           </Constraints>
 
@@ -288,7 +288,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel5" alignment="0" pref="66" max="32767" attributes="0"/>
+                  <Component id="jLabel5" alignment="0" pref="56" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -299,7 +299,7 @@
                   <Font name="Arial Black" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Home"/>
+                <Property name="text" type="java.lang.String" value="HOME"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -322,7 +322,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="320" width="250" height="60"/>
+              <AbsoluteConstraints x="0" y="310" width="250" height="60"/>
             </Constraint>
           </Constraints>
 
@@ -345,7 +345,7 @@
                   <Font name="Arial Black" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Enroll Students"/>
+                <Property name="text" type="java.lang.String" value="ENROLL STUDENTS"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -368,7 +368,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="380" width="250" height="60"/>
+              <AbsoluteConstraints x="0" y="370" width="250" height="60"/>
             </Constraint>
           </Constraints>
 
@@ -391,7 +391,7 @@
                   <Font name="Arial Black" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Approve Accounts"/>
+                <Property name="text" type="java.lang.String" value="APPROVE ACCOUNTS"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -414,19 +414,24 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="440" width="-1" height="-1"/>
+              <AbsoluteConstraints x="0" y="430" width="250" height="60"/>
             </Constraint>
           </Constraints>
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel4" alignment="0" pref="246" max="32767" attributes="0"/>
+                  <Component id="jLabel4" pref="246" max="32767" attributes="0"/>
+                  <Component id="jLabel10" pref="246" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel4" alignment="0" pref="56" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -437,7 +442,16 @@
                   <Font name="Arial Black" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Generate Report Card"/>
+                <Property name="text" type="java.lang.String" value="GENERATE"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel10">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial Black" size="18" style="1"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="REPORT CARD"/>
               </Properties>
             </Component>
           </SubComponents>

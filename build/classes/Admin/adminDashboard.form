@@ -161,7 +161,7 @@
                       <Font name="Arial Black" size="18" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Subjects Handled"/>
+                    <Property name="text" type="java.lang.String" value="SUBJECTS HANDLED"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -209,7 +209,7 @@
                       <Font name="Arial Black" size="18" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Home"/>
+                    <Property name="text" type="java.lang.String" value="HOME"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -258,7 +258,7 @@
                       <Font name="Arial Black" size="18" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Profile"/>
+                    <Property name="text" type="java.lang.String" value="PROFILE"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -307,7 +307,7 @@
                       <Font name="Arial Black" size="18" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Grades"/>
+                    <Property name="text" type="java.lang.String" value="GRADES"/>
                   </Properties>
                 </Component>
               </SubComponents>

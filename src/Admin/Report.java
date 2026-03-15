@@ -6,7 +6,14 @@
 package Admin;
 
 import Config.Session;
+import Config.config;
 import java.awt.Color;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -15,11 +22,22 @@ import javax.swing.JPanel;
  */
 public class Report extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Report
-     */
     public Report() {
         initComponents();
+        displayRequests();
+        if (Grades.getColumnCount() >= 4) {
+            Grades.getColumnModel().getColumn(0).setMinWidth(0);
+            Grades.getColumnModel().getColumn(0).setMaxWidth(0);
+            Grades.getColumnModel().getColumn(3).setMinWidth(0);
+            Grades.getColumnModel().getColumn(3).setMaxWidth(0);
+        }
+    }
+
+    private void displayRequests() {
+        String sql = "SELECT r.id, (a.fname || ' ' || a.lname) AS fullname, r.status, r.a_id " +
+                     "FROM tbl_report_requests r JOIN tbl_accounts a ON r.a_id = a.a_id ORDER BY r.id DESC";
+        config cn = new config();
+        cn.displayData(sql, Grades);
     }
 
     /**
@@ -48,8 +66,11 @@ public class Report extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         Report = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Grades = new javax.swing.JTable();
+        deny = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         Generate = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
 
@@ -100,7 +121,7 @@ public class Report extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Manage Courses");
+        jLabel7.setText("MANAGE COURSES");
 
         javax.swing.GroupLayout CoursesLayout = new javax.swing.GroupLayout(Courses);
         Courses.setLayout(CoursesLayout);
@@ -113,7 +134,7 @@ public class Report extends javax.swing.JFrame {
             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Courses, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 250, 60));
+        jPanel1.add(Courses, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 250, 60));
 
         Users.setBackground(new java.awt.Color(0, 153, 153));
         Users.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -131,7 +152,7 @@ public class Report extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Manage users");
+        jLabel6.setText("MANAGE USERS");
 
         javax.swing.GroupLayout UsersLayout = new javax.swing.GroupLayout(Users);
         Users.setLayout(UsersLayout);
@@ -144,7 +165,7 @@ public class Report extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 250, 60));
+        jPanel1.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 250, 60));
 
         Profile.setBackground(new java.awt.Color(0, 153, 153));
         Profile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -162,15 +183,13 @@ public class Report extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
+        jLabel3.setText("PROFILE");
 
         javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
         Profile.setLayout(ProfileLayout);
         ProfileLayout.setHorizontalGroup(
             ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProfileLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
         ProfileLayout.setVerticalGroup(
             ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,11 +198,14 @@ public class Report extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 250, 60));
+        jPanel1.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 250, 60));
 
         Home.setBackground(new java.awt.Color(0, 153, 153));
         Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HomeMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 HomeMouseEntered(evt);
             }
@@ -194,7 +216,7 @@ public class Report extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
+        jLabel5.setText("HOME");
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
@@ -204,10 +226,10 @@ public class Report extends javax.swing.JFrame {
         );
         HomeLayout.setVerticalGroup(
             HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 250, 70));
+        jPanel1.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 250, 60));
 
         Enroll.setBackground(new java.awt.Color(0, 153, 153));
         Enroll.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -225,7 +247,7 @@ public class Report extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Enroll Students");
+        jLabel8.setText("ENROLL STUDENTS");
 
         javax.swing.GroupLayout EnrollLayout = new javax.swing.GroupLayout(Enroll);
         Enroll.setLayout(EnrollLayout);
@@ -238,7 +260,7 @@ public class Report extends javax.swing.JFrame {
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Enroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 250, 60));
+        jPanel1.add(Enroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 250, 60));
 
         Approve.setBackground(new java.awt.Color(0, 153, 153));
         Approve.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -256,7 +278,7 @@ public class Report extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Approve Accounts");
+        jLabel9.setText("APPROVE ACCOUNTS");
 
         javax.swing.GroupLayout ApproveLayout = new javax.swing.GroupLayout(Approve);
         Approve.setLayout(ApproveLayout);
@@ -269,7 +291,7 @@ public class Report extends javax.swing.JFrame {
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Approve, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 250, 60));
+        jPanel1.add(Approve, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 250, 60));
 
         Report.setBackground(new java.awt.Color(0, 153, 153));
         Report.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -287,20 +309,28 @@ public class Report extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Generate Report Card");
+        jLabel4.setText("REPORT CARD");
+
+        jLabel12.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("GENERATE");
 
         javax.swing.GroupLayout ReportLayout = new javax.swing.GroupLayout(Report);
         Report.setLayout(ReportLayout);
         ReportLayout.setHorizontalGroup(
             ReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
         );
         ReportLayout.setVerticalGroup(
             ReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReportLayout.createSequentialGroup()
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4))
         );
 
-        jPanel1.add(Report, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, -1, -1));
+        jPanel1.add(Report, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 250, 60));
 
         Grades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -315,7 +345,40 @@ public class Report extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(Grades);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 730, 340));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 730, 330));
+
+        deny.setBackground(new java.awt.Color(0, 153, 153));
+        deny.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        deny.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                denyMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                denyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                denyMouseExited(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("DENY REQUEST");
+
+        javax.swing.GroupLayout denyLayout = new javax.swing.GroupLayout(deny);
+        deny.setLayout(denyLayout);
+        denyLayout.setHorizontalGroup(
+            denyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+        );
+        denyLayout.setVerticalGroup(
+            denyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, denyLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(deny, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 480, 360, -1));
 
         Generate.setBackground(new java.awt.Color(0, 153, 153));
         Generate.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -339,7 +402,7 @@ public class Report extends javax.swing.JFrame {
         Generate.setLayout(GenerateLayout);
         GenerateLayout.setHorizontalGroup(
             GenerateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
         );
         GenerateLayout.setVerticalGroup(
             GenerateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +411,7 @@ public class Report extends javax.swing.JFrame {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(Generate, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 490, 730, -1));
+        jPanel1.add(Generate, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 480, 360, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -364,6 +427,7 @@ public class Report extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public void setColor(JPanel p){
         p.setBackground(new Color(0, 204, 204));
@@ -437,7 +501,9 @@ public class Report extends javax.swing.JFrame {
     }//GEN-LAST:event_EnrollMouseExited
 
     private void ApproveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ApproveMouseClicked
-        // TODO add your handling code here:
+        Approve Approve = new Approve();
+        Approve.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ApproveMouseClicked
 
     private void ApproveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ApproveMouseEntered
@@ -449,7 +515,9 @@ public class Report extends javax.swing.JFrame {
     }//GEN-LAST:event_ApproveMouseExited
 
     private void ReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportMouseClicked
-        // TODO add your handling code here:
+        Report rep = new Report();
+        rep.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ReportMouseClicked
 
     private void ReportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportMouseEntered
@@ -461,16 +529,76 @@ public class Report extends javax.swing.JFrame {
     }//GEN-LAST:event_ReportMouseExited
 
     private void GenerateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenerateMouseClicked
-        // TODO add your handling code here:
+        int row = Grades.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a requester first.");
+            return;
+        }
+        int requestId = Integer.parseInt(Grades.getValueAt(row, 0).toString());
+        int studentAId = Integer.parseInt(Grades.getValueAt(row, 3).toString());
+        Card cardFrame = new Card(studentAId, true);
+        cardFrame.setVisible(true);
+        for (int i = 0; i < 100; i++) {
+            try { Thread.sleep(100); } catch (InterruptedException ignored) { }
+            if (cardFrame.getSavedImagePath() != null) break;
+        }
+        String savedPath = cardFrame.getSavedImagePath();
+        cardFrame.dispose();
+        if (savedPath != null) {
+            try (Connection conn = config.connectDB();
+                 PreparedStatement ps = conn.prepareStatement("UPDATE tbl_report_requests SET status = 'Released' WHERE id = ?")) {
+                ps.setInt(1, requestId);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Failed to update status: " + e.getMessage());
+            }
+            displayRequests();
+            JOptionPane.showMessageDialog(this, "Report card generated and saved to:\n" + savedPath);
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to save report card image.");
+        }
     }//GEN-LAST:event_GenerateMouseClicked
 
     private void GenerateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenerateMouseEntered
-        // TODO add your handling code here:
+        setColor(Generate);
     }//GEN-LAST:event_GenerateMouseEntered
 
     private void GenerateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenerateMouseExited
-        // TODO add your handling code here:
+        resetColor(Generate);
     }//GEN-LAST:event_GenerateMouseExited
+
+    private void denyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_denyMouseClicked
+        int row = Grades.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a requester first.");
+            return;
+        }
+        int requestId = Integer.parseInt(Grades.getValueAt(row, 0).toString());
+        try (Connection conn = config.connectDB();
+             PreparedStatement ps = conn.prepareStatement("UPDATE tbl_report_requests SET status = 'Denied' WHERE id = ?")) {
+            ps.setInt(1, requestId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Failed to update status: " + e.getMessage());
+            return;
+        }
+        displayRequests();
+        JOptionPane.showMessageDialog(this, "Request denied.");
+    }//GEN-LAST:event_denyMouseClicked
+
+    private void denyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_denyMouseEntered
+        setColor(deny);
+    }//GEN-LAST:event_denyMouseEntered
+
+    private void denyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_denyMouseExited
+        resetColor(deny);
+    }//GEN-LAST:event_denyMouseExited
+
+    private void HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseClicked
+        adminDashboardOrig Home = new adminDashboardOrig();
+        Home.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_HomeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -517,8 +645,11 @@ public class Report extends javax.swing.JFrame {
     private javax.swing.JPanel Profile;
     private javax.swing.JPanel Report;
     private javax.swing.JPanel Users;
+    private javax.swing.JPanel deny;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

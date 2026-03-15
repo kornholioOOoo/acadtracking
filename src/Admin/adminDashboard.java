@@ -106,7 +106,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Subjects Handled");
+        jLabel6.setText("SUBJECTS HANDLED");
 
         javax.swing.GroupLayout SubjectsLayout = new javax.swing.GroupLayout(Subjects);
         Subjects.setLayout(SubjectsLayout);
@@ -136,7 +136,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
+        jLabel5.setText("HOME");
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
@@ -169,7 +169,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
+        jLabel3.setText("PROFILE");
 
         javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
         Profile.setLayout(ProfileLayout);
@@ -202,7 +202,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Grades");
+        jLabel7.setText("GRADES");
 
         javax.swing.GroupLayout GradesLayout = new javax.swing.GroupLayout(Grades);
         Grades.setLayout(GradesLayout);

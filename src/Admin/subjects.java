@@ -38,7 +38,7 @@ public class subjects extends javax.swing.JFrame {
     }
     void displaySubjects(){
         config cn = new config();
-        String sql = "SELECT * FROM tbl_subjects";
+        String sql = "SELECT s_id, s_code, s_name, units, year_level, sem FROM tbl_subjects";
         cn.displayData(sql, subjectstable);
     }
     /**
@@ -54,18 +54,11 @@ public class subjects extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        Users = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        Home = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        Profile = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        Courses = new javax.swing.JPanel();
-        subjects = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         subjectstable = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
+        back = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        search = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         SearchText = new javax.swing.JTextField();
         Update = new javax.swing.JPanel();
@@ -115,141 +108,6 @@ public class subjects extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 130));
 
-        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Users.setBackground(new java.awt.Color(0, 153, 153));
-        Users.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Users.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                UsersMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                UsersMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                UsersMouseExited(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Manage Users");
-
-        javax.swing.GroupLayout UsersLayout = new javax.swing.GroupLayout(Users);
-        Users.setLayout(UsersLayout);
-        UsersLayout.setHorizontalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        UsersLayout.setVerticalGroup(
-            UsersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, UsersLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 250, 80));
-
-        Home.setBackground(new java.awt.Color(0, 153, 153));
-        Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Home.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                HomeMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                HomeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                HomeMouseExited(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
-
-        javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
-        Home.setLayout(HomeLayout);
-        HomeLayout.setHorizontalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-        );
-        HomeLayout.setVerticalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomeLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, 80));
-
-        Profile.setBackground(new java.awt.Color(0, 153, 153));
-        Profile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Profile.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ProfileMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ProfileMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ProfileMouseExited(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
-
-        javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
-        Profile.setLayout(ProfileLayout);
-        ProfileLayout.setHorizontalGroup(
-            ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        ProfileLayout.setVerticalGroup(
-            ProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProfileLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, 250, 80));
-
-        Courses.setBackground(new java.awt.Color(0, 153, 153));
-        Courses.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Courses.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                CoursesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                CoursesMouseExited(evt);
-            }
-        });
-
-        subjects.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        subjects.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        subjects.setText("Manage Subjects");
-
-        javax.swing.GroupLayout CoursesLayout = new javax.swing.GroupLayout(Courses);
-        Courses.setLayout(CoursesLayout);
-        CoursesLayout.setHorizontalGroup(
-            CoursesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(subjects, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-        );
-        CoursesLayout.setVerticalGroup(
-            CoursesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CoursesLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(subjects, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel3.add(Courses, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 250, 80));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 990, 160));
-
         subjectstable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -260,24 +118,54 @@ public class subjects extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(subjectstable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 930, 330));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 930, 350));
 
-        jPanel6.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        back.setBackground(new java.awt.Color(0, 153, 153));
+        back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel6MouseClicked(evt);
+                backMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backMouseExited(evt);
             }
         });
-        jPanel6.setLayout(null);
+        back.setLayout(null);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("BACK");
+        back.add(jLabel16);
+        jLabel16.setBounds(0, 0, 80, 30);
+
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 150, 80, 30));
+
+        search.setBackground(new java.awt.Color(0, 153, 153));
+        search.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                searchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                searchMouseExited(evt);
+            }
+        });
+        search.setLayout(null);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel13.setText("Search");
-        jPanel6.add(jLabel13);
-        jLabel13.setBounds(30, 0, 55, 30);
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("SEARCH");
+        search.add(jLabel13);
+        jLabel13.setBounds(0, 0, 80, 30);
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 220, 110, 30));
-        jPanel1.add(SearchText, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 260, 30));
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 150, 80, 30));
+        jPanel1.add(SearchText, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 280, 30));
 
         Update.setBackground(new java.awt.Color(0, 153, 153));
         Update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -285,16 +173,22 @@ public class subjects extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 UpdateMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                UpdateMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                UpdateMouseExited(evt);
+            }
         });
         Update.setLayout(null);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Update");
+        jLabel11.setText("UPDATE");
         Update.add(jLabel11);
-        jLabel11.setBounds(0, 0, 100, 30);
+        jLabel11.setBounds(0, 0, 90, 30);
 
-        jPanel1.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 100, 30));
+        jPanel1.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 90, 30));
 
         Add.setBackground(new java.awt.Color(0, 153, 153));
         Add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -302,16 +196,22 @@ public class subjects extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AddMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AddMouseExited(evt);
+            }
         });
         Add.setLayout(null);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Add");
+        jLabel15.setText("ADD");
         Add.add(jLabel15);
-        jLabel15.setBounds(0, 0, 100, 30);
+        jLabel15.setBounds(0, 0, 90, 30);
 
-        jPanel1.add(Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 100, 30));
+        jPanel1.add(Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, 30));
 
         Delete.setBackground(new java.awt.Color(0, 153, 153));
         Delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -319,16 +219,22 @@ public class subjects extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DeleteMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                DeleteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                DeleteMouseExited(evt);
+            }
         });
         Delete.setLayout(null);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Delete");
+        jLabel12.setText("DELETE");
         Delete.add(jLabel12);
-        jLabel12.setBounds(0, 0, 100, 30);
+        jLabel12.setBounds(0, 0, 90, 30);
 
-        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 100, 30));
+        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 90, 30));
 
         Assign.setBackground(new java.awt.Color(0, 153, 153));
         Assign.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -336,11 +242,17 @@ public class subjects extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AssignMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AssignMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AssignMouseExited(evt);
+            }
         });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Assign subject");
+        jLabel14.setText("ASSIGN SUBJECT");
 
         javax.swing.GroupLayout AssignLayout = new javax.swing.GroupLayout(Assign);
         Assign.setLayout(AssignLayout);
@@ -350,12 +262,12 @@ public class subjects extends javax.swing.JFrame {
         );
         AssignLayout.setVerticalGroup(
             AssignLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AssignLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AssignLayout.createSequentialGroup()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Assign, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 160, 30));
+        jPanel1.add(Assign, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 160, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -365,9 +277,7 @@ public class subjects extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -380,65 +290,20 @@ public class subjects extends javax.swing.JFrame {
     public void resetColor(JPanel p2){
         p2.setBackground(new Color(0, 153, 153));
     }
-    private void UsersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseEntered
-        setColor(Users);
-    }//GEN-LAST:event_UsersMouseEntered
-
-    private void UsersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseExited
-        resetColor(Users);
-    }//GEN-LAST:event_UsersMouseExited
-
-    private void HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseClicked
-        adminDashboardOrig Home = new adminDashboardOrig();
-        Home.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_HomeMouseClicked
-
-    private void HomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseEntered
-        setColor(Home);
-    }//GEN-LAST:event_HomeMouseEntered
-
-    private void HomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeMouseExited
-        resetColor(Home);
-    }//GEN-LAST:event_HomeMouseExited
-
-    private void ProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseEntered
-        setColor(Profile);
-    }//GEN-LAST:event_ProfileMouseEntered
-
-    private void ProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseExited
-        resetColor(Profile);
-    }//GEN-LAST:event_ProfileMouseExited
-
-    private void CoursesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseEntered
-        setColor(Courses);
-    }//GEN-LAST:event_CoursesMouseEntered
-
-    private void CoursesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesMouseExited
-        resetColor(Courses);
-    }//GEN-LAST:event_CoursesMouseExited
-
-    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+    private void searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseClicked
         config conf = new config();
-
         String keyword = SearchText.getText().trim();
-
         if (keyword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a subject code or name to search.");
             return;
         }
-
-        String sql = "SELECT s_id, s_code, s_name, units, yearlvl, sem " +
-        "FROM tbl_subjects WHERE s_code LIKE ? OR s_name LIKE ?";
-
+        String sql = "SELECT s_id, s_code, s_name, units, year_level, sem FROM tbl_subjects WHERE s_code LIKE ? OR s_name LIKE ?";
         String like = "%" + keyword + "%";
         conf.displayData(sql, subjectstable, like, like);
-
         if (subjectstable.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Doesn't Exist");
-            displaySubjects();
+            JOptionPane.showMessageDialog(this, "No matching record.");
         }
-    }//GEN-LAST:event_jPanel6MouseClicked
+    }//GEN-LAST:event_searchMouseClicked
 
     private void UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseClicked
         int row = subjectstable.getSelectedRow();
@@ -452,7 +317,7 @@ public class subjects extends javax.swing.JFrame {
         String s_code = subjectstable.getValueAt(row, 1).toString();
         String s_name = subjectstable.getValueAt(row, 2).toString();
         String units = subjectstable.getValueAt(row, 3).toString();
-        String yearlvl = subjectstable.getValueAt(row, 4).toString();
+        String yearlvl = subjectstable.getValueAt(row, 4).toString(); // year_level column
         String sem = subjectstable.getValueAt(row, 5).toString();
 
         UpdateSub up = new UpdateSub(s_id, s_code, s_name, units, yearlvl, sem);
@@ -488,7 +353,13 @@ public class subjects extends javax.swing.JFrame {
         displaySubjects();
     }//GEN-LAST:event_DeleteMouseClicked
 
-    private void AssignMouseClicked(java.awt.event.MouseEvent evt) {
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        adminDashboardOrig back = new adminDashboardOrig();
+        back.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backMouseClicked
+
+    private void AssignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AssignMouseClicked
         int row = subjectstable.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Choose a subject to assign to a teacher.");
@@ -551,19 +422,57 @@ public class subjects extends javax.swing.JFrame {
         cn.addRecord(sql, teacherId, subjectId);
 
         JOptionPane.showMessageDialog(this, "Subject assigned successfully!");
-    }
+    }//GEN-LAST:event_AssignMouseClicked
 
-    private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
-        users Users = new users();
-        Users.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_UsersMouseClicked
+    private void AddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseEntered
+        setColor(Add);
+    }//GEN-LAST:event_AddMouseEntered
 
-    private void ProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseClicked
-        profile prof = new profile(Session.userId);
-        prof.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_ProfileMouseClicked
+    private void AddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseExited
+        resetColor(Add);
+    }//GEN-LAST:event_AddMouseExited
+
+    private void UpdateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseEntered
+        setColor(Update);
+    }//GEN-LAST:event_UpdateMouseEntered
+
+    private void UpdateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseExited
+        resetColor(Update);
+    }//GEN-LAST:event_UpdateMouseExited
+
+    private void DeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseEntered
+        setColor(Delete);
+    }//GEN-LAST:event_DeleteMouseEntered
+
+    private void DeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseExited
+        resetColor(Delete);
+    }//GEN-LAST:event_DeleteMouseExited
+
+    private void AssignMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AssignMouseEntered
+        setColor(Assign);
+    }//GEN-LAST:event_AssignMouseEntered
+
+    private void AssignMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AssignMouseExited
+        resetColor(Assign);
+    }//GEN-LAST:event_AssignMouseExited
+
+    private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
+        setColor(search);
+    }//GEN-LAST:event_searchMouseEntered
+
+    private void searchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseExited
+        setColor(search);
+    }//GEN-LAST:event_searchMouseExited
+
+    private void backMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseEntered
+        setColor(back);
+    }//GEN-LAST:event_backMouseEntered
+
+    private void backMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseExited
+        setColor(back);
+    }//GEN-LAST:event_backMouseExited
+
+    
 
     /**
      * @param args the command line arguments
@@ -603,29 +512,22 @@ public class subjects extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Add;
     private javax.swing.JPanel Assign;
-    private javax.swing.JPanel Courses;
     private javax.swing.JPanel Delete;
-    private javax.swing.JPanel Home;
-    private javax.swing.JPanel Profile;
     private javax.swing.JTextField SearchText;
     private javax.swing.JPanel Update;
-    private javax.swing.JPanel Users;
+    private javax.swing.JPanel back;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel subjects;
+    private javax.swing.JPanel search;
     private javax.swing.JTable subjectstable;
     // End of variables declaration//GEN-END:variables
 }

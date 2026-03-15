@@ -8,8 +8,13 @@ package Admin;
 import Config.Session;
 import Config.config;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -32,8 +37,15 @@ public class Allgrades extends javax.swing.JFrame {
     
     void displayGrades(){
         config cn = new config();
-        String sql = "SELECT * FROM tbl_grades";
-        cn.displayData(sql, gradestable);
+        String sql = "SELECT g.g_id, s.s_code, s.s_name, (a.fname || ' ' || a.lname) AS name, " +
+            "g.prelim, g.midterm, g.prefinal, g.finals, " +
+            "CASE WHEN (g.prelim + g.midterm + g.prefinal + g.finals) / 4.0 BETWEEN 1.0 AND 3.0 THEN 'Passed' " +
+            "WHEN (g.prelim + g.midterm + g.prefinal + g.finals) / 4.0 BETWEEN 3.1 AND 5.0 THEN 'Failed' ELSE '' END AS remarks " +
+            "FROM tbl_grades g " +
+            "JOIN tbl_subjects s ON g.s_id = s.s_id " +
+            "JOIN tbl_accounts a ON g.a_id = a.a_id " +
+            "WHERE g.t_id = ?";
+        cn.displayData(sql, gradestable, Session.userId);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,9 +71,13 @@ public class Allgrades extends javax.swing.JFrame {
         Grades = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         gradestable = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
+        Search = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         SearchText = new javax.swing.JTextField();
+        Add = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        Update = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
         Delete = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
 
@@ -123,7 +139,7 @@ public class Allgrades extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Subjects");
+        jLabel6.setText("SUBJECTS HANDLED");
 
         javax.swing.GroupLayout SubjectsLayout = new javax.swing.GroupLayout(Subjects);
         Subjects.setLayout(SubjectsLayout);
@@ -156,7 +172,7 @@ public class Allgrades extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
+        jLabel5.setText("HOME");
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
@@ -189,7 +205,7 @@ public class Allgrades extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
+        jLabel3.setText("PROFILE");
 
         javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
         Profile.setLayout(ProfileLayout);
@@ -219,7 +235,7 @@ public class Allgrades extends javax.swing.JFrame {
 
         Grades.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         Grades.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Grades.setText("Grades");
+        Grades.setText("GRADES");
 
         javax.swing.GroupLayout ReportsLayout = new javax.swing.GroupLayout(Reports);
         Reports.setLayout(ReportsLayout);
@@ -250,22 +266,75 @@ public class Allgrades extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 930, 340));
 
-        jPanel6.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        Search.setBackground(new java.awt.Color(0, 153, 153));
+        Search.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Search.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel6MouseClicked(evt);
+                SearchMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                SearchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                SearchMouseExited(evt);
             }
         });
-        jPanel6.setLayout(null);
+        Search.setLayout(null);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel13.setText("Search");
-        jPanel6.add(jLabel13);
-        jLabel13.setBounds(30, 0, 55, 30);
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("SEARCH");
+        Search.add(jLabel13);
+        jLabel13.setBounds(5, 0, 100, 30);
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 220, 110, 30));
-        jPanel1.add(SearchText, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 360, 30));
+        jPanel1.add(Search, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 220, 110, 30));
+        jPanel1.add(SearchText, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 220, 240, 30));
+
+        Add.setBackground(new java.awt.Color(0, 153, 153));
+        Add.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AddMouseExited(evt);
+            }
+        });
+        Add.setLayout(null);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("ADD");
+        Add.add(jLabel15);
+        jLabel15.setBounds(0, 0, 160, 30);
+
+        jPanel1.add(Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 160, 30));
+
+        Update.setBackground(new java.awt.Color(0, 153, 153));
+        Update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Update.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UpdateMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                UpdateMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                UpdateMouseExited(evt);
+            }
+        });
+        Update.setLayout(null);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("UPDATE");
+        Update.add(jLabel14);
+        jLabel14.setBounds(0, 0, 160, 30);
+
+        jPanel1.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 160, 30));
 
         Delete.setBackground(new java.awt.Color(0, 153, 153));
         Delete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -273,16 +342,22 @@ public class Allgrades extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DeleteMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                DeleteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                DeleteMouseExited(evt);
+            }
         });
         Delete.setLayout(null);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Delete");
+        jLabel12.setText("DELETE");
         Delete.add(jLabel12);
-        jLabel12.setBounds(0, 0, 140, 30);
+        jLabel12.setBounds(0, 0, 160, 30);
 
-        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 420, 30));
+        jPanel1.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 160, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -351,22 +426,18 @@ public class Allgrades extends javax.swing.JFrame {
     private void DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseClicked
         int row = gradestable.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Select a user first!");
+            JOptionPane.showMessageDialog(this, "Choose a record to delete first");
             return;
         }
 
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
-
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this grade record?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) return;
 
-        int id = Integer.parseInt(gradestable.getValueAt(row, 0).toString());
-
+        int gId = Integer.parseInt(gradestable.getValueAt(row, 0).toString());
         config con = new config();
-        String sql = "DELETE FROM tbl_accounts WHERE a_id = ?";
-
-        con.addRecord(sql, id);
-
-        JOptionPane.showMessageDialog(this, "User deleted successfully!");
+        String sql = "DELETE FROM tbl_grades WHERE g_id = ?";
+        con.addRecord(sql, gId);
+        JOptionPane.showMessageDialog(this, "Record deleted successfully!");
         displayGrades();
     }//GEN-LAST:event_DeleteMouseClicked
 
@@ -377,30 +448,96 @@ public class Allgrades extends javax.swing.JFrame {
     }//GEN-LAST:event_ProfileMouseClicked
 
     private void SubjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubjectsMouseClicked
-        
+        subjectsHandled Subjects = new subjectsHandled();
+        Subjects.setVisible(true);
+        dispose();
     }//GEN-LAST:event_SubjectsMouseClicked
 
-    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+    private void SearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchMouseClicked
         config conf = new config();
-
         String keyword = SearchText.getText().trim();
-
         if (keyword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a name or email to search.");
+            displayGrades();
             return;
         }
-
-        String sql = "SELECT a_id, fname, email, pass, type, status " +
-        "FROM tbl_accounts WHERE fname LIKE '%" + keyword + "%' " +
-        "OR email LIKE '%" + keyword + "%'";
-
-        conf.displayData(sql, gradestable);
-
-        if (gradestable.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Doesn't Exist");
+        String like = "%" + keyword + "%";
+        String sql = "SELECT g.g_id, s.s_code, s.s_name, (a.fname || ' ' || a.lname) AS name, " +
+            "g.prelim, g.midterm, g.prefinal, g.finals, " +
+            "CASE WHEN (g.prelim + g.midterm + g.prefinal + g.finals) / 4.0 BETWEEN 1.0 AND 3.0 THEN 'Passed' " +
+            "WHEN (g.prelim + g.midterm + g.prefinal + g.finals) / 4.0 BETWEEN 3.1 AND 5.0 THEN 'Failed' ELSE '' END AS remarks " +
+            "FROM tbl_grades g " +
+            "JOIN tbl_subjects s ON g.s_id = s.s_id " +
+            "JOIN tbl_accounts a ON g.a_id = a.a_id " +
+            "WHERE g.t_id = ? AND (a.fname LIKE ? OR a.lname LIKE ? OR a.fname || ' ' || a.lname LIKE ? OR s.s_code LIKE ? OR s.s_name LIKE ?)";
+        try (Connection conn = config.connectDB();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, Session.userId);
+            ps.setString(2, like);
+            ps.setString(3, like);
+            ps.setString(4, like);
+            ps.setString(5, like);
+            ps.setString(6, like);
+            try (ResultSet rs = ps.executeQuery()) {
+                gradestable.setModel(DbUtils.resultSetToTableModel(rs));
+            }
+            if (gradestable.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "No matching record.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Search error: " + e.getMessage());
             displayGrades();
         }
-    }//GEN-LAST:event_jPanel6MouseClicked
+    }//GEN-LAST:event_SearchMouseClicked
+
+    private void UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseClicked
+        int row = gradestable.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Choose a record to update first");
+            return;
+        }
+        int gId = Integer.parseInt(gradestable.getValueAt(row, 0).toString());
+        addG addForm = new addG(gId);
+        addForm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_UpdateMouseClicked
+
+    private void AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseClicked
+        addG addForm = new addG();
+        addForm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_AddMouseClicked
+
+    private void AddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseEntered
+        setColor(Add);
+    }//GEN-LAST:event_AddMouseEntered
+
+    private void AddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseExited
+        resetColor(Add);
+    }//GEN-LAST:event_AddMouseExited
+
+    private void UpdateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseEntered
+        setColor(Update);
+    }//GEN-LAST:event_UpdateMouseEntered
+
+    private void UpdateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateMouseExited
+        resetColor(Update);
+    }//GEN-LAST:event_UpdateMouseExited
+
+    private void DeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseEntered
+        setColor(Delete);
+    }//GEN-LAST:event_DeleteMouseEntered
+
+    private void DeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseExited
+        resetColor(Delete);
+    }//GEN-LAST:event_DeleteMouseExited
+
+    private void SearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchMouseEntered
+        setColor(Search);
+    }//GEN-LAST:event_SearchMouseEntered
+
+    private void SearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchMouseExited
+        resetColor(Search);
+    }//GEN-LAST:event_SearchMouseExited
 
     /**
      * @param args the command line arguments
@@ -439,17 +576,22 @@ public class Allgrades extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Add;
     private javax.swing.JPanel Delete;
     private javax.swing.JLabel Grades;
     private javax.swing.JPanel Home;
     private javax.swing.JPanel Profile;
     private javax.swing.JPanel Reports;
+    private javax.swing.JPanel Search;
     private javax.swing.JTextField SearchText;
     private javax.swing.JPanel Subjects;
+    private javax.swing.JPanel Update;
     private javax.swing.JTable gradestable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -457,7 +599,6 @@ public class Allgrades extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,8 +5,13 @@
  */
 package Admin;
 
+import Config.Session;
 import Config.config;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -19,31 +24,84 @@ public class addG extends javax.swing.JFrame {
     config conf = new config();
     int selectedStudentId = 0;
     int selectedSubjectId = 0;
-    
+    /** When > 0, we are updating this grade record. */
+    int editGradeId = 0;
+
     public addG() {
-        if(!Config.Session.isLoggedIn){
-        JOptionPane.showMessageDialog(null, "You must login first!");
-        new Main.Login().setVisible(true);
-        return;
+        if (!Config.Session.isLoggedIn) {
+            JOptionPane.showMessageDialog(null, "You must login first!");
+            new Main.Login().setVisible(true);
+            return;
         }
         initComponents();
-        displayStudents();
+        // Start with subjects only; students table stays empty until a subject is selected
+        displaySubjectsForTeacher();
     }
-    public void displayStudents(){
 
-    String sql = "SELECT a_id, fname, lname FROM tbl_accounts WHERE type='Student'";
+    /** Opens addG with existing grade loaded (update mode). */
+    public addG(int gId) {
+        if (!Config.Session.isLoggedIn) {
+            JOptionPane.showMessageDialog(null, "You must login first!");
+            new Main.Login().setVisible(true);
+            return;
+        }
+        this.editGradeId = gId;
+        initComponents();
+        // Subjects first, then load the specific grade (which will also populate students)
+        displaySubjectsForTeacher();
+        loadGradeForEdit();
+    }
 
-    conf.displayData(sql, teybol);
-    
-}
-    public void displaySubjects(int studentId){
-    String sql = "SELECT tbl_subjects.s_id, tbl_subjects.s_code, tbl_subjects.s_name " +
-                 "FROM tbl_subjects " +
-                 "JOIN tbl_grades ON tbl_subjects.s_id = tbl_grades.s_id " +
-                 "WHERE tbl_grades.a_id = ?";
+    private void loadGradeForEdit() {
+        String sql = "SELECT a_id, s_id, prelim, midterm, prefinal, finals FROM tbl_grades WHERE g_id = ?";
+        try (Connection conn = config.connectDB();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, editGradeId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    selectedStudentId = rs.getInt("a_id");
+                    selectedSubjectId = rs.getInt("s_id");
+                    pl.setText(rs.getString("prelim"));
+                    m.setText(rs.getString("midterm"));
+                    pf.setText(rs.getString("prefinal"));
+                    f.setText(rs.getString("finals"));
+                    // Populate tables based on this subject, then select the proper rows
+                    displayStudentsForSubject(selectedSubjectId);
+                    selectRowInTable(teyball, 0, selectedSubjectId);
+                    selectRowInTable(teybol, 0, selectedStudentId);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading grade: " + e.getMessage());
+        }
+    }
 
-    conf.displayData(sql, teyball, studentId);
-}
+    private void selectRowInTable(javax.swing.JTable table, int idColumnIndex, int id) {
+        for (int i = 0; i < table.getRowCount(); i++) {
+            Object val = table.getValueAt(i, idColumnIndex);
+            if (val != null && Integer.parseInt(val.toString()) == id) {
+                table.setRowSelectionInterval(i, i);
+                return;
+            }
+        }
+    }
+
+    /** Students enrolled in a specific subject (regardless of teacher), used after selecting a subject. */
+    public void displayStudentsForSubject(int subjectId) {
+        String sql =
+            "SELECT DISTINCT a.a_id, a.fname, a.lname " +
+            "FROM tbl_accounts a " +
+            "JOIN tbl_grades g ON a.a_id = g.a_id " +
+            "WHERE a.type = 'Student' AND g.s_id = ?";
+        conf.displayData(sql, teybol, subjectId);
+    }
+
+    /** Subjects assigned to the logged-in teacher (for adding/editing grades). */
+    public void displaySubjectsForTeacher() {
+        String sql = "SELECT s.s_id, s.s_code, s.s_name FROM tbl_subjects_handled sh " +
+                     "JOIN tbl_subjects s ON sh.s_id = s.s_id WHERE sh.a_id = ?";
+        conf.displayData(sql, teyball, Session.userId);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,6 +186,9 @@ public class addG extends javax.swing.JFrame {
         Users.setBackground(new java.awt.Color(0, 153, 153));
         Users.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Users.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UsersMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 UsersMouseEntered(evt);
             }
@@ -138,7 +199,7 @@ public class addG extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Users");
+        jLabel6.setText("SUBJECTS HANDLED");
 
         javax.swing.GroupLayout UsersLayout = new javax.swing.GroupLayout(Users);
         Users.setLayout(UsersLayout);
@@ -153,7 +214,7 @@ public class addG extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 250, -1));
+        jPanel3.add(Users, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 250, 80));
 
         Home.setBackground(new java.awt.Color(0, 153, 153));
         Home.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -171,7 +232,7 @@ public class addG extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Home");
+        jLabel5.setText("HOME");
 
         javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
         Home.setLayout(HomeLayout);
@@ -186,7 +247,7 @@ public class addG extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, -1));
+        jPanel3.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, 80));
 
         Profile.setBackground(new java.awt.Color(0, 153, 153));
         Profile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -201,7 +262,7 @@ public class addG extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Profile");
+        jLabel3.setText("PROFILE");
 
         javax.swing.GroupLayout ProfileLayout = new javax.swing.GroupLayout(Profile);
         Profile.setLayout(ProfileLayout);
@@ -216,7 +277,7 @@ public class addG extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, 250, -1));
+        jPanel3.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, 250, 80));
 
         Reports.setBackground(new java.awt.Color(0, 153, 153));
         Reports.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -231,7 +292,7 @@ public class addG extends javax.swing.JFrame {
 
         Grades.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         Grades.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Grades.setText("Grades");
+        Grades.setText("GRADES");
 
         javax.swing.GroupLayout ReportsLayout = new javax.swing.GroupLayout(Reports);
         Reports.setLayout(ReportsLayout);
@@ -246,7 +307,7 @@ public class addG extends javax.swing.JFrame {
                 .addComponent(Grades, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(Reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 250, -1));
+        jPanel3.add(Reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 250, 80));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 990, 160));
 
@@ -265,7 +326,7 @@ public class addG extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(teybol);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 440, 170));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 440, 170));
 
         teyball.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -299,6 +360,12 @@ public class addG extends javax.swing.JFrame {
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel4MouseExited(evt);
             }
         });
 
@@ -404,19 +471,25 @@ public class addG extends javax.swing.JFrame {
 
     private void teybolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teybolMouseClicked
         int row = teybol.getSelectedRow();
-
-        selectedStudentId = Integer.parseInt(
-        teybol.getValueAt(row, 0).toString()
-    );
-        displaySubjects(selectedStudentId);
+        if (row >= 0) {
+            selectedStudentId = Integer.parseInt(teybol.getValueAt(row, 0).toString());
+        }
     }//GEN-LAST:event_teybolMouseClicked
 
     private void teyballMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_teyballMouseClicked
         int row = teyball.getSelectedRow();
 
-        selectedSubjectId = Integer.parseInt(
-        teyball.getValueAt(row, 0).toString()
-    );
+        if (row >= 0) {
+            selectedSubjectId = Integer.parseInt(teyball.getValueAt(row, 0).toString());
+            selectedStudentId = 0;
+            // Load students enrolled in this subject
+            displayStudentsForSubject(selectedSubjectId);
+            // Clear any previous grades in the input fields
+            pl.setText("");
+            m.setText("");
+            pf.setText("");
+            f.setText("");
+        }
     }//GEN-LAST:event_teyballMouseClicked
 
     private void mActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActionPerformed
@@ -424,49 +497,73 @@ public class addG extends javax.swing.JFrame {
     }//GEN-LAST:event_mActionPerformed
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        if (selectedStudentId == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a student first.");
+            return;
+        }
+        if (selectedSubjectId == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a subject first.");
+            return;
+        }
 
+        try {
+            double prelim = Double.parseDouble(pl.getText().trim());
+            double midterm = Double.parseDouble(m.getText().trim());
+            double prefinal = Double.parseDouble(pf.getText().trim());
+            double finalGrade = Double.parseDouble(f.getText().trim());
 
-    if(selectedStudentId == 0){
-        JOptionPane.showMessageDialog(this, "Please select a student first.");
-        return;
-    }
+            // Prefer updating an existing enrollment row (created in Enroll) instead of inserting duplicates
+            int gradeIdToUse = editGradeId;
+            if (gradeIdToUse == 0) {
+                String findSql = "SELECT g_id FROM tbl_grades WHERE a_id = ? AND s_id = ? LIMIT 1";
+                try (Connection conn = config.connectDB();
+                     PreparedStatement ps = conn.prepareStatement(findSql)) {
+                    ps.setInt(1, selectedStudentId);
+                    ps.setInt(2, selectedSubjectId);
+                    try (ResultSet rs = ps.executeQuery()) {
+                        if (rs.next()) {
+                            gradeIdToUse = rs.getInt("g_id");
+                        }
+                    }
+                }
+            }
 
-    if(selectedSubjectId == 0){
-        JOptionPane.showMessageDialog(this, "Please select a subject first.");
-        return;
-    }
-
-    try {
-        double prelim = Double.parseDouble(pl.getText());
-        double midterm = Double.parseDouble(m.getText());
-        double prefinal = Double.parseDouble(pf.getText());
-        double finalGrade = Double.parseDouble(f.getText());
-
-        String sql = "INSERT INTO tbl_grades(student_id, subject_id, prelim, midterm, prefinal, final) " +
-                     "VALUES(?,?,?,?,?,?)";
-
-        conf.addRecord(sql, selectedStudentId, selectedSubjectId, prelim, midterm, prefinal, finalGrade);
-
-        JOptionPane.showMessageDialog(this, "Grades added successfully!");
-
-        // Clear all input fields
-        pl.setText("");
-        m.setText("");
-        pf.setText("");
-        f.setText("");
-
-        // Refresh subjects table if needed
-        displaySubjects(selectedStudentId);
-
-    } catch(NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Please enter valid numbers for all grades.");
-    } catch(Exception e){
-        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-    }
-
-
-    
+            if (gradeIdToUse > 0) {
+                String sql = "UPDATE tbl_grades SET a_id = ?, s_id = ?, prelim = ?, midterm = ?, prefinal = ?, finals = ?, t_id = ? WHERE g_id = ?";
+                conf.addRecord(sql, selectedStudentId, selectedSubjectId, prelim, midterm, prefinal, finalGrade, Session.userId, gradeIdToUse);
+                JOptionPane.showMessageDialog(this, "Grades updated successfully!");
+                Allgrades back = new Allgrades();
+                back.setVisible(true);
+                dispose();
+            } else {
+                String sql = "INSERT INTO tbl_grades(a_id, s_id, t_id, prelim, midterm, prefinal, finals) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                conf.addRecord(sql, selectedStudentId, selectedSubjectId, Session.userId, prelim, midterm, prefinal, finalGrade);
+                JOptionPane.showMessageDialog(this, "Grades added successfully!");
+                pl.setText("");
+                m.setText("");
+                pf.setText("");
+                f.setText("");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers for all grades.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void UsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersMouseClicked
+        subjectsHandled Users = new subjectsHandled();
+        Users.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_UsersMouseClicked
+
+    private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
+        setColor(jPanel4);
+    }//GEN-LAST:event_jPanel4MouseEntered
+
+    private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
+        resetColor(jPanel4);
+    }//GEN-LAST:event_jPanel4MouseExited
 
     /**
      * @param args the command line arguments

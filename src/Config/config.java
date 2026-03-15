@@ -69,6 +69,44 @@ public void addRecord(String sql, Object... values) {
     }
 }
 
+/** Executes INSERT and returns the generated primary key (e.g. a_id). Returns -1 on error. */
+public int addRecordReturningId(String sql, Object... values) {
+    try (Connection conn = this.connectDB();
+         PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] instanceof Integer) {
+                pstmt.setInt(i + 1, (Integer) values[i]);
+            } else if (values[i] instanceof Double) {
+                pstmt.setDouble(i + 1, (Double) values[i]);
+            } else if (values[i] instanceof Float) {
+                pstmt.setFloat(i + 1, (Float) values[i]);
+            } else if (values[i] instanceof Long) {
+                pstmt.setLong(i + 1, (Long) values[i]);
+            } else if (values[i] instanceof Boolean) {
+                pstmt.setBoolean(i + 1, (Boolean) values[i]);
+            } else if (values[i] instanceof java.util.Date) {
+                pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime()));
+            } else if (values[i] instanceof java.sql.Date) {
+                pstmt.setDate(i + 1, (java.sql.Date) values[i]);
+            } else if (values[i] instanceof java.sql.Timestamp) {
+                pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]);
+            } else {
+                pstmt.setString(i + 1, values[i].toString());
+            }
+        }
+
+        pstmt.executeUpdate();
+        try (ResultSet rs = pstmt.getGeneratedKeys()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error adding record: " + e.getMessage());
+    }
+    return -1;
+}
 
 public void displayData(String sql, javax.swing.JTable table) {
     try (Connection conn = connectDB();
