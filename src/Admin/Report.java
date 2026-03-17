@@ -13,8 +13,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 
 /**
  *
@@ -536,27 +539,90 @@ public class Report extends javax.swing.JFrame {
         }
         int requestId = Integer.parseInt(Grades.getValueAt(row, 0).toString());
         int studentAId = Integer.parseInt(Grades.getValueAt(row, 3).toString());
-        Card cardFrame = new Card(studentAId, true);
-        cardFrame.setVisible(true);
-        for (int i = 0; i < 100; i++) {
-            try { Thread.sleep(100); } catch (InterruptedException ignored) { }
-            if (cardFrame.getSavedImagePath() != null) break;
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Choose folder to save the report card image");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+        int choice = chooser.showSaveDialog(this);
+        if (choice != JFileChooser.APPROVE_OPTION) {
+            return;
         }
-        String savedPath = cardFrame.getSavedImagePath();
-        cardFrame.dispose();
-        if (savedPath != null) {
-            try (Connection conn = config.connectDB();
-                 PreparedStatement ps = conn.prepareStatement("UPDATE tbl_report_requests SET status = 'Released' WHERE id = ?")) {
-                ps.setInt(1, requestId);
-                ps.executeUpdate();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Failed to update status: " + e.getMessage());
+        File saveDir = chooser.getSelectedFile();
+
+        // Run generation without blocking the Swing UI thread.
+        Generate.setEnabled(false);
+        deny.setEnabled(false);
+
+        SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
+            private String error;
+
+            @Override
+            protected String doInBackground() {
+                final Card[] holder = new Card[1];
+                try {
+                    // Create/show the Card on the EDT so it can render, then wait for it to save.
+                    javax.swing.SwingUtilities.invokeAndWait(() -> {
+                        holder[0] = new Card(studentAId, true, saveDir);
+                        holder[0].setVisible(true);
+                    });
+
+                    Card cardFrame = holder[0];
+                    long start = System.currentTimeMillis();
+                    while (System.currentTimeMillis() - start < 12000) { // up to 12 seconds
+                        String path = cardFrame.getSavedImagePath();
+                        if (path != null) {
+                            return path;
+                        }
+                        String err = cardFrame.getSaveErrorMessage();
+                        if (err != null) {
+                            error = err;
+                            return null;
+                        }
+                        try { Thread.sleep(100); } catch (InterruptedException ignored) { }
+                    }
+                    error = "Timed out while saving the image.";
+                    return null;
+                } catch (Exception ex) {
+                    error = ex.getMessage();
+                    return null;
+                }
             }
-            displayRequests();
-            JOptionPane.showMessageDialog(this, "Report card generated and saved to:\n" + savedPath);
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to save report card image.");
-        }
+
+            @Override
+            protected void done() {
+                try {
+                    String savedPath = get();
+                    if (savedPath != null) {
+                        try (Connection conn = config.connectDB();
+                             PreparedStatement ps = conn.prepareStatement("UPDATE tbl_report_requests SET status = 'Released' WHERE id = ?")) {
+                            ps.setInt(1, requestId);
+                            ps.executeUpdate();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(Report.this, "Failed to update status: " + e.getMessage());
+                        }
+                        displayRequests();
+                        JOptionPane.showMessageDialog(Report.this, "Report card generated and saved to:\n" + savedPath);
+
+                        // Redirect to Card.java (normal view)
+                        Card view = new Card(studentAId);
+                        view.setVisible(true);
+                        Report.this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(Report.this,
+                                "Failed to save report card image." + (error != null ? "\n" + error : ""));
+                        Generate.setEnabled(true);
+                        deny.setEnabled(true);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(Report.this, "Failed to generate report card: " + ex.getMessage());
+                    Generate.setEnabled(true);
+                    deny.setEnabled(true);
+                }
+            }
+        };
+
+        worker.execute();
     }//GEN-LAST:event_GenerateMouseClicked
 
     private void GenerateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenerateMouseEntered

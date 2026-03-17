@@ -5,6 +5,9 @@
  */
 package Main;
 
+import java.awt.Color;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Dell
@@ -31,9 +34,10 @@ public class Landing extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        Login = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        Register = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -44,10 +48,6 @@ public class Landing extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        Login = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        Register = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -67,17 +67,53 @@ public class Landing extends javax.swing.JFrame {
         jLabel1.setText("Academic Tracking System");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 250, 30));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel3.setText("About");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 40, -1, -1));
+        Login.setBackground(new java.awt.Color(0, 153, 153));
+        Login.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoginMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LoginMouseExited(evt);
+            }
+        });
+        Login.setLayout(null);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel4.setText("Home");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, -1, -1));
+        jLabel18.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("Login");
+        Login.add(jLabel18);
+        jLabel18.setBounds(0, 0, 70, 30);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel5.setText("Features");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, -1, -1));
+        jPanel2.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 40, 70, 30));
+
+        Register.setBackground(new java.awt.Color(0, 153, 153));
+        Register.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Register.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegisterMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RegisterMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                RegisterMouseExited(evt);
+            }
+        });
+        Register.setLayout(null);
+
+        jLabel19.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("Register");
+        Register.add(jLabel19);
+        jLabel19.setBounds(0, 0, 70, 30);
+
+        jPanel2.add(Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 40, 70, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 110));
 
@@ -89,69 +125,35 @@ public class Landing extends javax.swing.JFrame {
 
         jLabel7.setText("better learning outcomes.");
         jLabel7.setToolTipText("");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 230, 30));
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 230, 30));
 
         jLabel8.setText("a simple and reliable platform");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 230, 30));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 230, 30));
 
         jLabel9.setText("designed to monitor academic");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 230, 30));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 230, 30));
 
         jLabel10.setText("progress, organize records,");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 230, 30));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 230, 30));
 
         jLabel11.setText("and help users achieve");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 230, 30));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 230, 30));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 153, 153));
         jLabel12.setText("Succeed Academically.");
         jLabel12.setToolTipText("");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 290, -1));
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 290, -1));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 153, 153));
         jLabel13.setText("Track Progress.");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 153, 153));
         jLabel14.setText("Stay Organized.");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 40));
-
-        Login.setBackground(new java.awt.Color(0, 102, 153));
-        Login.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LoginMouseClicked(evt);
-            }
-        });
-        Login.setLayout(null);
-
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Login");
-        Login.add(jLabel18);
-        jLabel18.setBounds(30, 20, 55, 20);
-
-        jPanel3.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 110, 60));
-
-        Register.setBackground(new java.awt.Color(0, 204, 0));
-        Register.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RegisterMouseClicked(evt);
-            }
-        });
-        Register.setLayout(null);
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Register");
-        Register.add(jLabel19);
-        jLabel19.setBounds(20, 20, 85, 20);
-
-        jPanel3.add(Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 120, 60));
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 40));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/gradient.png"))); // NOI18N
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-130, 30, 610, 460));
@@ -163,16 +165,14 @@ public class Landing extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
 
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Contact: jejed142@gmail.com   © 2026 Academic Tracking System · All rights reserved.");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(jLabel17)
-                .addContainerGap(141, Short.MAX_VALUE))
+            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +198,13 @@ public class Landing extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    public void setColor(JPanel p){
+        p.setBackground(new Color(0, 204, 204));
+    }
+    
+    public void resetColor(JPanel p2){
+        p2.setBackground(new Color(0, 153, 153));
+    }
     private void RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMouseClicked
         Register Register = new Register();
         Register.setVisible(true);
@@ -210,6 +216,22 @@ public class Landing extends javax.swing.JFrame {
         Login.setVisible(true);
         dispose();
     }//GEN-LAST:event_LoginMouseClicked
+
+    private void LoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseEntered
+        setColor(Login);
+    }//GEN-LAST:event_LoginMouseEntered
+
+    private void LoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginMouseExited
+        resetColor(Login);
+    }//GEN-LAST:event_LoginMouseExited
+
+    private void RegisterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMouseEntered
+        setColor(Register);
+    }//GEN-LAST:event_RegisterMouseEntered
+
+    private void RegisterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterMouseExited
+        resetColor(Register);
+    }//GEN-LAST:event_RegisterMouseExited
 
     /**
      * @param args the command line arguments
@@ -261,9 +283,6 @@ public class Landing extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
