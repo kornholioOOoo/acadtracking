@@ -147,12 +147,7 @@ public class add extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("ADD USER");
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
-            }
-        });
-        addU.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 80));
+        addU.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 180, 80));
 
         jPanel4.add(addU, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 260, 80));
         jPanel4.add(confpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 240, 40));
@@ -231,10 +226,6 @@ public class add extends javax.swing.JFrame {
     private void PassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PassActionPerformed
-
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel11MouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         users back = new users();
